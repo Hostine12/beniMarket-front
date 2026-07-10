@@ -76,10 +76,29 @@ export const deliveryHistory = [
 
 // --- Témoignages page d'accueil ---
 export const testimonials = [
-  { name: 'Aïcha D.', role: 'Cliente · Cotonou', text: 'Je fais mon marché depuis mon téléphone le matin, tout arrive frais avant midi. Un vrai gain de temps.', avatar: 'photo-1531123897727-8f129e1688ce', rating: 5 },
-  { name: 'Mama Aïssa', role: 'Vendeuse · Saveurs de Mama Aïssa', text: 'BeniMarket m’a ouvert une clientèle bien au-delà de mon quartier. Mes ventes ont doublé en six mois.', avatar: 'photo-1544005313-94ddf0286df2', rating: 5 },
-  { name: 'Moussa T.', role: 'Livreur · Cotonou', text: 'Les courses sont bien organisées et le code OTP me sécurise à chaque remise. Je travaille sereinement.', avatar: 'photo-1506794778202-cad84cf45f1d', rating: 5 },
+  { 
+    name: 'Aïcha D.', 
+    role: 'Cliente · Parakou', 
+    text: 'Je fais mon marché depuis mon téléphone le matin, tout arrive frais avant midi. Un vrai gain de temps.', 
+    image: '/profil client.jpg', 
+    rating: 5 
+  },
+  { 
+    name: 'Mama Aïssa', 
+    role: 'Vendeuse · Saveurs de Mama Aïssa', 
+    text: 'BeniMarket m’a ouvert une clientèle bien au-delà de mon quartier. Mes ventes ont doublé en six mois.', 
+    image: '/profil vendeur.jpg', 
+    rating: 5 
+  },
+  { 
+    name: 'Moussa T.', 
+    role: 'Livreur · Parakou', 
+    text: 'Les courses sont bien organisées et le code OTP me sécurise à chaque remise. Je travaille sereinement.', 
+    image: '/profil livreur.jpg', 
+    rating: 5 
+  }
 ]
+
 
 // --- KPIs vendeur ---
 export const vendorStats = {

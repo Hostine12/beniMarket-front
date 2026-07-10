@@ -1,41 +1,38 @@
 import { Link } from 'react-router-dom'
 import { ArrowRight, ChevronRight } from 'lucide-react'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import api from '../../api/axios'
 
 const CAT_IMAGES = {
-  // Parents
-  frais:       '/sous categories produits frais.jpg',
-  fruits:      '/sous categorie fruits et legumes.png',
-  epices:      '/sous categorie epices et condiments.jpg',
-  boissons:    '/sous categories boisson.webp',
-  tissus:      '/tissu-africain-nom_2_727c40da-cde4-4681-a6d6-63d16f51a3bb.jpg',
+  frais: '/sous categories produits frais.jpg',
+  fruits: '/sous categorie fruits et legumes.png',
+  epices: '/sous categorie epices et condiments.jpg',
+  boissons: '/sous categories boisson.webp',
+  tissus: '/tissu-africain-nom_2_727c40da-cde4-4681-a6d6-63d16f51a3bb.jpg',
   cosmetiques: '/sous categorie cosmetiques naturels.jpg',
-  // Sous-catégories
-  tomates:         '/tomates categories.jpg',
-  oignons:         '/ails et oigons categories.jpg',
+  tomates: '/tomates categories.jpg',
+  oignons: '/ails et oigons categories.jpg',
   'legumes-verts': '/legumes vert categories.jpg',
-  cereales:        '/cereales et tubercules catgeories.webp',
-  bananes:         '/banane-plantin.webp',
-  mangues:         '/mangues.jpg',
-  piment:          '/categories piments.webp',
-  gingembre:       '/gingembre categorie.avif',
-  karite:          '/beurre de karité.jpg',
-  savons:          '/savoir noir.webp',
+  cereales: '/cereales et tubercules catgeories.webp',
+  bananes: '/banane-plantin.webp',
+  mangues: '/mangues.jpg',
+  piment: '/categories piments.webp',
+  gingembre: '/gingembre categorie.avif',
+  karite: '/beurre de karité.jpg',
+  savons: '/savoir noir.webp',
 }
 
 function getImage(slug) {
   return CAT_IMAGES[slug] ?? null
 }
 
-// Couleurs d'accent par catégorie pour fallback et accents visuels
 const CAT_ACCENTS = {
-  teal:  'from-teal-800 to-teal-600',
+  teal: 'from-teal-800 to-teal-600',
   amber: 'from-amber-700 to-amber-500',
-  plum:  'from-plum-800 to-plum-600',
+  plum: 'from-plum-800 to-plum-600',
 }
 
-function CategoryCard({ cat }) {
+function CategoryCard({ cat, index, isVisible }) {
   const image = cat.image ? `/storage/${cat.image}` : getImage(cat.slug)
   const accent = CAT_ACCENTS[cat.accent] ?? CAT_ACCENTS.teal
   const hasSubs = cat.subcategories?.length > 0
@@ -43,33 +40,31 @@ function CategoryCard({ cat }) {
   return (
     <Link
       to={`/categorie/${cat.id}/vendeurs`}
-      className="group relative overflow-hidden rounded-3xl h-56 sm:h-64"
+      className={`group relative overflow-hidden rounded-3xl h-56 sm:h-64 transition-all duration-700 transform ${
+        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+      }`}
+      style={{ transitionDelay: `${index * 150}ms` }}
     >
-      {/* Image de fond */}
       {image ? (
         <img
           src={image}
           alt={cat.name}
-          className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-          onError={e => e.currentTarget.style.display = 'none'}
+          className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-110 group-hover:rotate-1"
+          onError={e => (e.currentTarget.style.display = 'none')}
         />
       ) : (
         <div className={`absolute inset-0 bg-gradient-to-br ${accent}`} />
       )}
 
-      {/* Overlays — assombrissement renforcé pour lisibilité du texte blanc */}
       <div className="absolute inset-0 bg-black/30" />
       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/10" />
 
-      {/* Badge produits — glassmorphism */}
       <div className="absolute top-3 right-3 flex items-center gap-1 rounded-full bg-black/40 backdrop-blur-md border border-white/30 px-2.5 py-1 text-xs font-semibold text-white shadow-sm">
         {cat.products_count ?? cat.count ?? 0}
         <span className="opacity-90">produits</span>
       </div>
 
-      {/* Contenu bas */}
       <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-5">
-        {/* Titre + flèche */}
         <div className="flex items-end justify-between gap-3 mb-2.5">
           <h3 className="font-display font-bold text-white leading-tight text-lg sm:text-xl drop-shadow-md">
             {cat.name}
@@ -79,7 +74,6 @@ function CategoryCard({ cat }) {
           </div>
         </div>
 
-        {/* Sous-catégories en chips glassmorphism */}
         {hasSubs && (
           <div className="flex flex-wrap gap-1.5">
             {cat.subcategories.slice(0, 3).map(sub => (
@@ -107,6 +101,8 @@ function CategoryCard({ cat }) {
 export default function CategoryGrid() {
   const [categories, setCategories] = useState([])
   const [loading, setLoading] = useState(true)
+  const [isVisible, setIsVisible] = useState(false)
+  const sectionRef = useRef(null)
 
   useEffect(() => {
     api.get('/categories')
@@ -115,15 +111,28 @@ export default function CategoryGrid() {
       .finally(() => setLoading(false))
   }, [])
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsVisible(entry.isIntersecting),
+      { threshold: 0.2 }
+    )
+    if (sectionRef.current) observer.observe(sectionRef.current)
+    return () => observer.disconnect()
+  }, [])
+
   return (
-    <section id="categories" className="relative scroll-mt-20 overflow-hidden bg-ink-50 py-16 lg:py-24">
-      {/* Halos décoratifs */}
-      <div className="pointer-events-none absolute -right-32 top-0 h-80 w-80 rounded-full bg-teal-100/50 blur-3xl" />
-      <div className="pointer-events-none absolute -left-32 bottom-0 h-80 w-80 rounded-full bg-amber-100/40 blur-3xl" />
+    <section
+      id="categories"
+      ref={sectionRef}
+      className={`relative scroll-mt-20 overflow-hidden bg-ink-50 py-16 lg:py-24 transition-all duration-700 ${
+        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+      }`}
+    >
+      {/* Halos animés */}
+      <div className="pointer-events-none absolute -right-32 top-0 h-80 w-80 rounded-full bg-teal-100/50 blur-3xl animate-[float_6s_ease-in-out_infinite]" />
+      <div className="pointer-events-none absolute -left-32 bottom-0 h-80 w-80 rounded-full bg-amber-100/40 blur-3xl animate-[float_8s_ease-in-out_infinite]" />
 
       <div className="relative max-shell container-px">
-
-        {/* Titre section */}
         <div className="flex items-end justify-between gap-4 mb-10">
           <div>
             <span className="inline-flex items-center gap-1.5 rounded-full bg-teal-50 border border-teal-100 px-3 py-1 text-xs font-semibold text-teal-700 mb-3">
@@ -145,7 +154,6 @@ export default function CategoryGrid() {
           </Link>
         </div>
 
-        {/* Grille catégories */}
         {loading ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
             {[...Array(6)].map((_, i) => (
@@ -154,22 +162,20 @@ export default function CategoryGrid() {
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-            {categories.map(cat => (
-              <CategoryCard key={cat.id} cat={cat} />
+            {categories.map((cat, i) => (
+              <CategoryCard key={cat.id} cat={cat} index={i} isVisible={isVisible} />
             ))}
           </div>
         )}
 
-        {/* CTA mobile */}
-        <div className="mt-8 sm:hidden text-center">
+                <div className="mt-8 sm:hidden text-center">
           <Link
             to="/catalogue"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-teal-700 bg-teal-50 hover:bg-teal-100 px-5 py-3 rounded-2xl transition-colors"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-teal-700 bg-teal-50 hover:bg-teal-100 px-5 py-3 rounded-2xl transition-colors shadow-soft hover:shadow-card"
           >
             Voir tout le catalogue <ArrowRight size={15} />
           </Link>
         </div>
-
       </div>
     </section>
   )

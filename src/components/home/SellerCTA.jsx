@@ -1,14 +1,44 @@
 import { Link } from 'react-router-dom'
 import { Store, Bike, ArrowRight, Check } from 'lucide-react'
 import SmartImage from '../ui/SmartImage'
+import { useEffect, useRef, useState } from 'react'
 
 export default function SellerCTA() {
+  const [isVisible, setIsVisible] = useState(false)
+  const sectionRef = useRef(null)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsVisible(entry.isIntersecting),
+      { threshold: 0.2 }
+    )
+    if (sectionRef.current) observer.observe(sectionRef.current)
+    return () => observer.disconnect()
+  }, [])
+
   return (
-    <section className="py-16 lg:py-20">
+    <section
+      ref={sectionRef}
+      className={`py-16 lg:py-20 transition-all duration-700 ${
+        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+      }`}
+    >
       <div className="max-shell container-px">
         <div className="grid gap-8 lg:grid-cols-2">
           {/* Vendeur */}
-          <div className="group relative overflow-hidden rounded-4xl bg-gradient-to-br from-teal-700 via-teal-600 to-emerald-600 p-8 text-white shadow-card ring-1 ring-ink-900/5 sm:p-10">
+          <div
+            className={`group relative overflow-hidden rounded-4xl bg-gradient-to-br from-teal-700 via-teal-600 to-emerald-600 p-8 text-white shadow-card ring-1 ring-ink-900/5 sm:p-10 transition-all duration-700 ${
+              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            }`}
+            style={{ transitionDelay: '200ms' }}
+          >
+            <img
+              src="/boutique local.jpg"
+              alt="Boutique locale avec produits frais"
+              width={700}
+              height={500}
+              className="absolute inset-0 h-full w-full object-cover opacity-25 transition-transform duration-700 group-hover:scale-105 p-4"
+            />
             <div className="absolute -right-16 -top-16 h-56 w-56 rounded-full bg-white/10 blur-2xl transition-transform duration-500 group-hover:scale-125" />
             <div className="absolute -bottom-20 -left-10 h-52 w-52 rounded-full bg-amber-400/20 blur-3xl" />
             <div className="relative">
@@ -21,7 +51,7 @@ export default function SellerCTA() {
                 dans votre ville.
               </p>
               <ul className="mt-5 space-y-2 text-sm text-teal-50">
-                {['Inscription gratuite', 'Paiements Mobile Money sécurisés', 'Gestion simple du stock'].map((f) => (
+                {['Inscription gratuite', 'Visibilité auprès de milliers de clients', 'Gestion simple du stock'].map((f) => (
                   <li key={f} className="flex items-center gap-2">
                     <span className="grid h-5 w-5 place-items-center rounded-full bg-white/15">
                       <Check size={13} className="text-amber-300" />
@@ -37,7 +67,12 @@ export default function SellerCTA() {
           </div>
 
           {/* Livreur */}
-          <div className="group relative overflow-hidden rounded-4xl bg-ink-900 p-8 text-white shadow-card ring-1 ring-ink-900/5 sm:p-10">
+          <div
+            className={`group relative overflow-hidden rounded-4xl bg-ink-400 p-8 text-white shadow-card ring-1 ring-ink-900/5 sm:p-10 transition-all duration-700 ${
+              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            }`}
+            style={{ transitionDelay: '400ms' }}
+          >
             <SmartImage
               id="photo-1558981403-c5f9899a28bc"
               alt="Livreur à moto en ville"
@@ -51,11 +86,21 @@ export default function SellerCTA() {
               <span className="grid h-12 w-12 place-items-center rounded-2xl bg-gradient-to-br from-amber-400 to-orange-500 text-ink-900 shadow-soft">
                 <Bike size={24} />
               </span>
-              <h3 className="mt-5 font-display text-2xl font-bold sm:text-3xl">Roulez avec BeniMarket</h3>
+              <h3 className="mt-5 font-display text-2xl font-bold sm:text-3xl text-white">Roulez avec BeniMarket</h3>
               <p className="mt-3 max-w-md text-ink-200">
                 Devenez livreur partenaire, choisissez vos courses et gagnez un revenu flexible à
                 votre rythme.
               </p>
+              <ul className="mt-5 space-y-2 text-sm text-teal-50">
+                {['Inscription rapide et gratuite', 'Paiement reçu après la livraison', 'Suivi facile des courses'].map((f) => (
+                  <li key={f} className="flex items-center gap-2">
+                    <span className="grid h-5 w-5 place-items-center rounded-full bg-white/15">
+                      <Check size={13} className="text-amber-300" />
+                    </span>
+                    {f}
+                  </li>
+                ))}
+              </ul>
               <Link to="/connexion" className="btn-outline mt-7 border-white/30 bg-white/10 text-white backdrop-blur transition-transform hover:-translate-y-0.5 hover:bg-white/20">
                 Devenir livreur <ArrowRight size={16} />
               </Link>

@@ -1,4 +1,5 @@
 import { Search, Smartphone, Truck } from 'lucide-react'
+import { useEffect, useRef, useState } from 'react'
 
 const steps = [
   {
@@ -25,8 +26,26 @@ const steps = [
 ]
 
 export default function HowItWorks() {
+  const [isVisible, setIsVisible] = useState(false)
+  const sectionRef = useRef(null)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsVisible(entry.isIntersecting),
+      { threshold: 0.2 }
+    )
+    if (sectionRef.current) observer.observe(sectionRef.current)
+    return () => observer.disconnect()
+  }, [])
+
   return (
-    <section id="comment" className="relative scroll-mt-20 overflow-hidden py-16 lg:py-24">
+    <section
+      id="comment"
+      ref={sectionRef}
+      className={`relative scroll-mt-20 overflow-hidden py-16 lg:py-24 transition-all duration-700 ${
+        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+      }`}
+    >
       {/* Fond dégradé doux */}
       <div className="absolute inset-0 -z-10 bg-gradient-to-b from-white via-ink-50/50 to-white" />
       <div className="absolute left-1/2 top-1/3 -z-10 h-72 w-[36rem] -translate-x-1/2 rounded-full bg-teal-100/40 blur-3xl" />
@@ -52,7 +71,12 @@ export default function HowItWorks() {
           {steps.map((s, i) => (
             <div
               key={s.title}
-              className="group relative overflow-hidden rounded-3xl border border-ink-100 bg-white/80 p-7 text-center shadow-soft backdrop-blur transition-all duration-300 hover:-translate-y-1.5 hover:shadow-card"
+              className={`group relative overflow-hidden rounded-3xl border border-ink-100 bg-white/80 p-7 text-center shadow-soft backdrop-blur transition-all duration-700 transform ${
+                isVisible
+                  ? 'opacity-100 translate-y-0'
+                  : 'opacity-0 translate-y-10'
+              }`}
+              style={{ transitionDelay: `${i * 200}ms` }} // décalage progressif
             >
               <div className={`pointer-events-none absolute -top-6 left-1/2 h-28 w-28 -translate-x-1/2 rounded-full ${s.glow} blur-2xl`} />
               <div className={`relative mx-auto grid h-16 w-16 place-items-center rounded-2xl bg-gradient-to-br ${s.tint} text-white shadow-soft transition-transform duration-300 group-hover:scale-105`}>

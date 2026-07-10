@@ -1,20 +1,38 @@
 import { Link } from 'react-router-dom'
 import { ArrowRight } from 'lucide-react'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import ProductCard from '../product/ProductCard'
 import api from '../../api/axios'
 
 export default function FeaturedProducts() {
   const [featured, setFeatured] = useState([])
   const [loading, setLoading] = useState(true)
+  const [isVisible, setIsVisible] = useState(false)
+  const sectionRef = useRef(null)
+
   useEffect(() => {
     api.get('/products?per_page=8')
       .then(r => setFeatured((r.data.data || r.data).slice(0, 8)))
       .catch(() => {})
       .finally(() => setLoading(false))
   }, [])
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsVisible(entry.isIntersecting),
+      { threshold: 0.2 }
+    )
+    if (sectionRef.current) observer.observe(sectionRef.current)
+    return () => observer.disconnect()
+  }, [])
+
   return (
-    <section className="relative overflow-hidden bg-white py-16 lg:py-20">
+    <section
+      ref={sectionRef}
+      className={`relative overflow-hidden bg-white py-16 lg:py-20 transition-all duration-700 ${
+        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+      }`}
+    >
       <div className="pointer-events-none absolute right-0 top-1/4 h-72 w-72 rounded-full bg-amber-100/40 blur-3xl" />
       <div className="relative max-shell container-px">
         <div className="flex items-end justify-between gap-4">
