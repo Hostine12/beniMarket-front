@@ -78,7 +78,7 @@ export default function Hero() {
 
   return (
 
-<section className="relative overflow-hidden">
+<section className="relative min-h-screen overflow-hidden">
 
 
  
@@ -159,7 +159,7 @@ className="
 container mx-auto px-4
 flex flex-col items-center text-center
 
-min-h-[600px]
+min-h-[700px]
 py-12
 
 sm:min-h-[660px]
