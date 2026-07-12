@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Search, ShieldCheck, Truck, Star, Smartphone, CheckCircle2 } from 'lucide-react'
+import { motion } from "framer-motion";
 
 const popular = ['Tomates', 'Tissu Wax', 'Karité', 'Bissap', 'Riz local']
 
@@ -60,11 +61,20 @@ export default function Hero() {
           </span>
 
           {/* Titre animé */}
-          <h1 className="mt-8 mb-6 font-display text-2xl sm:text-4xl lg:text-[3rem] font-extrabold leading-snug text-white animate-slide-up delay-300">
-            <span className="text-orange-400">Achetez frais</span>, 
-            <span className="text-green-500"> payez par Mobile Money</span>, 
-            <span className="text-white"> recevez rapidement</span>.
-          </h1>
+         <motion.h1
+  initial={{ opacity: 0, y: 40 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{
+    duration: 1.2,
+    ease: "easeOut",
+    delay: 0.3,
+  }}
+  className="mt-8 mb-6 font-display text-2xl sm:text-4xl lg:text-[3rem] font-extrabold leading-snug text-white"
+>
+  <span className="text-orange-400">Achetez frais</span>,
+  <span className="text-green-500"> payez par Mobile Money</span>,
+  <span className="text-white"> recevez rapidement</span>.
+</motion.h1>
 
 
           {/* Paragraphe animé */}
