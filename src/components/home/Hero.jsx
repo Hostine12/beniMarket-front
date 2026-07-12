@@ -68,12 +68,14 @@ export default function Hero() {
     className="text-orange-400"
   />
   {", "}
+  <br></br>
   <AnimatedText
     text="payez par Mobile Money"
     className="text-green-500"
     delay={0.6}
   />
   {", "}
+   <br></br>
   <AnimatedText
     text="recevez rapidement."
     className="text-white"
