@@ -81,43 +81,82 @@ export default function Hero() {
 <section className="relative overflow-hidden">
 
 
+ 
+
 {/* ================= CARROUSEL ================= */}
 
-<div className="absolute inset-0 -z-10">
+<div 
+  className="
+    absolute 
+    inset-0 
+    -z-10
+    h-full
+    w-full
+    overflow-hidden
+  "
+>
 
 {
-heroImages.map((img,index)=>(
+heroImages.map((img, index) => (
+
 <img
-key={index}
+  key={index}
   src={img.src}
   alt={img.alt}
+
   className={`
-    absolute inset-0
-    h-full w-full
+    absolute
+    inset-0
+
+    h-full
+    w-full
+
     object-cover
+
+    /* Mobile */
     object-center
+
+    /* Tablette */
     sm:object-center
+
+    /* Desktop */
     lg:object-right
-    transition-opacity duration-1000
-    ${index === current ? "opacity-100" : "opacity-0"}
+
+    transition-all
+    duration-1000
+    ease-in-out
+
+    ${
+      index === current
+      ? "opacity-100 scale-100"
+      : "opacity-0 scale-105"
+    }
   `}
+
 />
 
 ))
 }
 
 
+{/* Overlay pour la lisibilité du texte */}
+
 <div
 className="
-absolute inset-0 
-bg-gradient-to-t 
-from-ink-900/90 
-via-ink-900/60 
-to-ink-900/45
+absolute
+inset-0
+
+bg-gradient-to-t
+
+from-ink-900/95
+via-ink-900/65
+to-ink-900/40
+
 
 lg:bg-gradient-to-r
-lg:from-ink-900/92
-lg:via-ink-900/55
+
+lg:from-ink-900/95
+lg:via-ink-900/60
 lg:to-transparent
 "
 />
