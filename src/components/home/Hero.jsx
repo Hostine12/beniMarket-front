@@ -62,50 +62,49 @@ export default function Hero() {
             🌿 100% local — Parakou, Bénin
           </span>
 
-          {/* Titre animé */}
  <h1 className="mt-8 mb-6 font-display text-2xl sm:text-4xl lg:text-[3rem] font-extrabold leading-snug text-white">
+
   <AnimatedText
     text="Achetez frais"
     className="text-orange-400"
+    startDelay={0}
   />
-  {", "}
-  <br></br>
+
+  <br />
+
   <AnimatedText
     text="payez par Mobile Money"
     className="text-green-500"
-    delay={0.6}
+    startDelay={1500}
   />
-  {", "}
-   <br></br>
+
+  <br />
+
   <AnimatedText
     text="recevez rapidement."
     className="text-white"
-    delay={1.8}
+    startDelay={4200}
   />
+
 </h1>
 
 
           {/* Paragraphe animé */}
-          <motion.p
-  initial={{
-    opacity: 0,
-    y: 15,
-    scale: 0.97,
-  }}
+         <motion.p
+  className="mt-12 max-w-xl text-base sm:text-lg leading-relaxed text-white/85"
+  initial={{ opacity: 0, y: 12 }}
   animate={{
-    opacity: 1,
-    y: 0,
-    scale: 1,
+    opacity: [0, 1, 1, 0],
+    y: [12, 0, 0, 12],
   }}
   transition={{
-    duration: 0.8,
-    delay: 2.8,
-    ease: "easeOut",
+    duration: 7,
+    repeat: Infinity,
+    repeatDelay: 1,
   }}
-  className="mt-12 max-w-xl text-base sm:text-lg leading-relaxed text-white/85"
 >
-  BeniMarket connecte les commerçants de confiance près de chez vous à des milliers de clients —
-  des produits locaux de qualité, livrés à domicile en toute sécurité.
+  BeniMarket connecte les commerçants de confiance près de chez vous à des milliers
+  de clients — des produits locaux de qualité, livrés à domicile en toute sécurité.
 </motion.p>
         </div>
       </div>
