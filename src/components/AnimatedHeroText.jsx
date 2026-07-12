@@ -1,55 +1,86 @@
-import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 
-const words = [
+const messages = [
   {
-    text: "plus proche.",
+    text: "près de chez vous.",
     color: "text-orange-400",
   },
   {
-    text: "plus rapide.",
+    text: "livré rapidement.",
     color: "text-green-500",
   },
   {
-    text: "plus sûr.",
+    text: "payé par Mobile Money.",
+    color: "text-emerald-400",
+  },
+  {
+    text: "100 % béninois.",
     color: "text-white",
   },
 ];
 
 export default function AnimatedHeroText() {
-  const [index, setIndex] = useState(0);
+  const [messageIndex, setMessageIndex] = useState(0);
+  const [displayed, setDisplayed] = useState("");
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setIndex((i) => (i + 1) % words.length);
-    }, 2500);
+    let typingInterval;
+    let nextTimeout;
 
-    return () => clearInterval(timer);
-  }, []);
+    const current = messages[messageIndex].text;
+    let i = 0;
+
+    setDisplayed("");
+
+    typingInterval = setInterval(() => {
+      i++;
+
+      setDisplayed(current.slice(0, i));
+
+      if (i === current.length) {
+        clearInterval(typingInterval);
+
+        nextTimeout = setTimeout(() => {
+          setMessageIndex((prev) => (prev + 1) % messages.length);
+        }, 2200);
+      }
+    }, 55);
+
+    return () => {
+      clearInterval(typingInterval);
+      clearTimeout(nextTimeout);
+    };
+  }, [messageIndex]);
 
   return (
     <div>
-      <span className="text-white">
+      <div className="text-white">
         Votre marché,
-      </span>
+      </div>
 
-      <br />
-
-      <div className="h-[70px] overflow-hidden">
+      <div className="h-[80px] overflow-hidden">
         <AnimatePresence mode="wait">
-          <motion.span
-            key={index}
-            initial={{ opacity: 0, y: 25 }}
+          <motion.div
+            key={messageIndex}
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -25 }}
-            transition={{
-              duration: 0.55,
-              ease: "easeInOut",
-            }}
-            className={`${words[index].color}`}
+            exit={{ opacity: 0, y: -12 }}
+            transition={{ duration: 0.4 }}
+            className={`inline-block ${messages[messageIndex].color}`}
           >
-            {words[index].text}
-          </motion.span>
+            {displayed}
+
+            <motion.span
+              animate={{ opacity: [0, 1, 0] }}
+              transition={{
+                duration: 0.8,
+                repeat: Infinity,
+              }}
+            >
+              ▌
+            </motion.span>
+          </motion.div>
         </AnimatePresence>
       </div>
     </div>

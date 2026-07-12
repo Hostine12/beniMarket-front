@@ -64,24 +64,19 @@ export default function Hero() {
             🌿 100% local — Parakou, Bénin
           </span>
 
-<h1 className="mt-8 mb-6 font-display text-3xl sm:text-5xl lg:text-6xl font-extrabold leading-tight">
+<h1 className="mt-8 mb-6 font-display text-4xl sm:text-5xl lg:text-7xl font-extrabold leading-tight">
     <AnimatedHeroText />
 </h1>
 
 
           {/* Paragraphe animé */}
        <motion.p
-  initial={{ opacity: 0 }}
-  animate={{ opacity: [0, 1, 1, 0] }}
-  transition={{
-    duration: 6,
-    repeat: Infinity,
-    repeatDelay: 1,
-  }}
-  className="mt-12 max-w-xl text-base sm:text-lg leading-relaxed text-white/85"
+    initial={{ opacity: 0, y: 15 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ delay: 0.8, duration: 0.8 }}
+    className="mt-10 max-w-xl text-lg leading-relaxed text-white/85"
 >
-  BeniMarket connecte les commerçants de confiance près de chez vous à des milliers de clients —
-  des produits locaux de qualité, livrés à domicile en toute sécurité.
+    BeniMarket connecte les commerçants de confiance près de chez vous à des milliers de clients — des produits locaux de qualité, livrés à domicile en toute sécurité.
 </motion.p>
         </div>
       </div>
