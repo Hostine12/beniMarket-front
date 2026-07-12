@@ -64,7 +64,7 @@ export default function Hero() {
             🌿 100% local — Parakou, Bénin
           </span>
 
-<h1 className="mt-8 mb-6 font-display text-3xl sm:text-4xl lg:text-6xl font-extrabold leading-tight text-white">
+<h1 className="mt-8 mb-6 font-display text-3xl sm:text-5xl lg:text-6xl font-extrabold leading-tight">
     <AnimatedHeroText />
 </h1>
 

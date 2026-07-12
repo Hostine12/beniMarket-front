@@ -1,17 +1,17 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
-const phrases = [
+const words = [
   {
-    text: "Achetez frais",
+    text: "plus proche.",
     color: "text-orange-400",
   },
   {
-    text: "Payez par Mobile Money",
+    text: "plus rapide.",
     color: "text-green-500",
   },
   {
-    text: "Recevez rapidement",
+    text: "plus sûr.",
     color: "text-white",
   },
 ];
@@ -20,27 +20,38 @@ export default function AnimatedHeroText() {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setIndex((i) => (i + 1) % phrases.length);
+    const timer = setInterval(() => {
+      setIndex((i) => (i + 1) % words.length);
     }, 2500);
 
-    return () => clearInterval(interval);
+    return () => clearInterval(timer);
   }, []);
 
   return (
-    <div className="h-[90px] flex items-center justify-center lg:justify-start overflow-hidden">
-      <AnimatePresence mode="wait">
-        <motion.span
-          key={index}
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -30 }}
-          transition={{ duration: 0.6 }}
-          className={`font-extrabold ${phrases[index].color}`}
-        >
-          {phrases[index].text}
-        </motion.span>
-      </AnimatePresence>
+    <div>
+      <span className="text-white">
+        Votre marché,
+      </span>
+
+      <br />
+
+      <div className="h-[70px] overflow-hidden">
+        <AnimatePresence mode="wait">
+          <motion.span
+            key={index}
+            initial={{ opacity: 0, y: 25 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -25 }}
+            transition={{
+              duration: 0.55,
+              ease: "easeInOut",
+            }}
+            className={`${words[index].color}`}
+          >
+            {words[index].text}
+          </motion.span>
+        </AnimatePresence>
+      </div>
     </div>
   );
 }
