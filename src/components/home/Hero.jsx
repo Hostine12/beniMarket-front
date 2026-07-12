@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Search, ShieldCheck, Truck, Star, Smartphone, CheckCircle2 } from 'lucide-react'
 import { motion } from "framer-motion";
+import AnimatedText from "../components/AnimatedText";
 
 const popular = ['Tomates', 'Tissu Wax', 'Karité', 'Bissap', 'Riz local']
 
@@ -61,36 +62,24 @@ export default function Hero() {
           </span>
 
           {/* Titre animé */}
-         <motion.h1
-  className="mt-8 mb-6 font-display text-2xl sm:text-4xl lg:text-[3rem] font-extrabold leading-snug text-white"
->
-  <motion.span
-    initial={{ opacity: 0, y: 20 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.8 }}
+ <h1 className="mt-8 mb-6 font-display text-2xl sm:text-4xl lg:text-[3rem] font-extrabold leading-snug text-white">
+  <AnimatedText
+    text="Achetez frais"
     className="text-orange-400"
-  >
-    Achetez frais
-  </motion.span>
-
-  <motion.span
-    initial={{ opacity: 0, y: 20 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.8, delay: 0.6 }}
+  />
+  {", "}
+  <AnimatedText
+    text="payez par Mobile Money"
     className="text-green-500"
-  >
-    {" "}payez par Mobile Money
-  </motion.span>
-
-  <motion.span
-    initial={{ opacity: 0, y: 20 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.8, delay: 1.2 }}
+    delay={0.6}
+  />
+  {", "}
+  <AnimatedText
+    text="recevez rapidement."
     className="text-white"
-  >
-    {" "}recevez rapidement.
-  </motion.span>
-</motion.h1>
+    delay={1.8}
+  />
+</h1>
 
 
           {/* Paragraphe animé */}
