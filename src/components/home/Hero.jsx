@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Search, ShieldCheck, Truck, Star, Smartphone, CheckCircle2 } from 'lucide-react'
 import { motion } from "framer-motion";
-import AnimatedText from "../components/AnimatedText";
+import AnimatedText from "../AnimatedText";
 
 const popular = ['Tomates', 'Tissu Wax', 'Karité', 'Bissap', 'Riz local']
 
