@@ -27,17 +27,14 @@ const heroImages = [
   {
     src: "/hero-section1.jpg",
     alt: "Cliente commandant des produits frais",
-    position: "center",
   },
   {
     src: "/hero-section2.jpg",
     alt: "Commerçant local présentant ses produits",
-    position: "right",
   },
   {
     src: "/hero-section3.jpg",
     alt: "Livraison rapide de produits frais",
-    position: "left",
   },
 ];
 
@@ -99,32 +96,29 @@ export default function Hero() {
   "
 >
 
-{
-heroImages.map((img, index) => (
+{/* 1. Le conteneur parent qui gère la hauteur et le responsive */}
+<div className="relative w-full h-[50vh] sm:h-[60vh] md:h-[80vh] overflow-hidden">
+  
+  {heroImages.map((img, index) => (
+    <img
+      key={index}
+      src={img.src}
+      alt={img.alt}
+      className={`
+        absolute inset-0
+        h-full w-full
+        object-cover
+        
+        /* Modifié ici pour un meilleur responsive centré par défaut */
+        object-center 
+        
+        transition-opacity duration-1000
+        ${index === current ? "opacity-100" : "opacity-0"}
+      `}
+    />
+  ))}
 
-<img
-  key={index}
-  src={img.src}
-  alt={img.alt}
-  className={`
-    absolute inset-0
-    h-full w-full
-
-   object-cover
-${img.position}
-
-    transition-opacity duration-1000
-
-    ${
-      index === current
-      ? "opacity-100"
-      : "opacity-0"
-    }
-  `}
-/>
-
-))
-}
+</div>
 
 
 {/* Overlay pour la lisibilité du texte */}
