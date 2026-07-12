@@ -1,3 +1,4 @@
+import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
 const phrases = [
@@ -15,42 +16,31 @@ const phrases = [
   },
 ];
 
-export default function AnimatedText() {
-  const [phraseIndex, setPhraseIndex] = useState(0);
-  const [displayed, setDisplayed] = useState("");
-  const [deleting, setDeleting] = useState(false);
+export default function AnimatedHeroText() {
+  const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    const current = phrases[phraseIndex].text;
+    const interval = setInterval(() => {
+      setIndex((i) => (i + 1) % phrases.length);
+    }, 2500);
 
-    let timeout;
-
-    if (!deleting && displayed.length < current.length) {
-      timeout = setTimeout(() => {
-        setDisplayed(current.slice(0, displayed.length + 1));
-      }, 80);
-    } else if (!deleting && displayed.length === current.length) {
-      timeout = setTimeout(() => {
-        setDeleting(true);
-      }, 1800);
-    } else if (deleting && displayed.length > 0) {
-      timeout = setTimeout(() => {
-        setDisplayed(current.slice(0, displayed.length - 1));
-      }, 40);
-    } else if (deleting && displayed.length === 0) {
-      setDeleting(false);
-      setPhraseIndex((phraseIndex + 1) % phrases.length);
-    }
-
-    return () => clearTimeout(timeout);
-  }, [displayed, deleting, phraseIndex]);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
-    <span
-      className={`${phrases[phraseIndex].color} transition-colors duration-500`}
-    >
-      {displayed}
-      <span className="animate-pulse">|</span>
-    </span>
+    <div className="h-[90px] flex items-center justify-center lg:justify-start overflow-hidden">
+      <AnimatePresence mode="wait">
+        <motion.span
+          key={index}
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -30 }}
+          transition={{ duration: 0.6 }}
+          className={`font-extrabold ${phrases[index].color}`}
+        >
+          {phrases[index].text}
+        </motion.span>
+      </AnimatePresence>
+    </div>
   );
 }
