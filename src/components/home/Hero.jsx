@@ -107,8 +107,10 @@ heroImages.map((img, index) => (
     absolute inset-0
     h-full w-full
 
-    object-contain
+   object-cover
 object-center
+sm:object-center
+lg:object-right
 
     transition-opacity duration-1000
 
@@ -159,7 +161,7 @@ className="
 container mx-auto px-4
 flex flex-col items-center text-center
 
-min-h-[700px]
+min-h-[620px]
 py-12
 
 sm:min-h-[660px]
