@@ -82,7 +82,7 @@ export default function Hero() {
       </div>
 
       {/* Barre de recherche */}
-      <form onSubmit={go} className="mt-8 max-w-xl mx-auto lg:mx-0 animate-zoom-in delay-1000">
+      <form onSubmit={go} className="mt-8 max-w-xl mx-auto lg:mx-10 animate-zoom-in delay-1000">
         <div className="flex flex-col sm:flex-row items-stretch gap-2 rounded-2xl border border-white/30 bg-white/95 p-2 shadow-2xl backdrop-blur">
           <div className="flex items-center flex-1">
             <Search size={20} className="ml-2 text-ink-400" />
