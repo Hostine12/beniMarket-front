@@ -103,36 +103,21 @@ heroImages.map((img, index) => (
   key={index}
   src={img.src}
   alt={img.alt}
-
   className={`
-    absolute
-    inset-0
-
-    h-full
-    w-full
+    absolute inset-0
+    h-full w-full
 
     object-cover
+object-[center_30%]
 
-    /* Mobile */
-    object-center
-
-    /* Tablette */
-    sm:object-center
-
-    /* Desktop */
-    lg:object-right
-
-    transition-all
-    duration-1000
-    ease-in-out
+    transition-opacity duration-1000
 
     ${
       index === current
-      ? "opacity-100 scale-100"
-      : "opacity-0 scale-105"
+      ? "opacity-100"
+      : "opacity-0"
     }
   `}
-
 />
 
 ))
