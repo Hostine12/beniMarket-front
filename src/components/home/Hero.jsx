@@ -2,8 +2,9 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Search, ShieldCheck, Truck, Star, Smartphone, CheckCircle2 } from 'lucide-react'
 import { motion } from "framer-motion";
-import AnimatedText from "../AnimatedText";
+// import AnimatedText from "../AnimatedText";
 import { Typewriter } from "react-simple-typewriter";
+import AnimatedHeroText from "../AnimatedHeroText";
 
 
 const popular = ['Tomates', 'Tissu Wax', 'Karité', 'Bissap', 'Riz local']
@@ -63,24 +64,8 @@ export default function Hero() {
             🌿 100% local — Parakou, Bénin
           </span>
 
-<h1 className="mt-8 mb-6 font-display text-2xl sm:text-4xl lg:text-[3rem] font-extrabold leading-snug text-white">
-
-  <span className="text-orange-400">
-    <Typewriter
-      words={[
-        "Achetez frais",
-        "Payez par Mobile Money",
-        "Recevez rapidement"
-      ]}
-      loop={0}
-      cursor
-      cursorStyle="|"
-      typeSpeed={80}
-      deleteSpeed={50}
-      delaySpeed={2000}
-    />
-  </span>
-
+<h1 className="mt-8 mb-6 font-display text-2xl sm:text-4xl lg:text-[3rem] font-extrabold leading-snug text-white min-h-[150px]">
+  <AnimatedHeroText />
 </h1>
 
 
