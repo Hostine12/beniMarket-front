@@ -87,11 +87,19 @@ export default function Hero() {
 
           {/* Paragraphe animé */}
           <motion.p
-  initial={{ opacity: 0, scale: 0.97 }}
-  animate={{ opacity: 1, scale: 1 }}
+  initial={{
+    opacity: 0,
+    y: 15,
+    scale: 0.97,
+  }}
+  animate={{
+    opacity: 1,
+    y: 0,
+    scale: 1,
+  }}
   transition={{
     duration: 0.8,
-    delay: 2.8, // après l'animation du titre
+    delay: 2.8,
     ease: "easeOut",
   }}
   className="mt-12 max-w-xl text-base sm:text-lg leading-relaxed text-white/85"
