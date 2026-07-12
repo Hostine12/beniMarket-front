@@ -98,23 +98,27 @@ export default function Hero() {
 
 {
 heroImages.map((img, index) => (
-<div className="relative w-full h-[50vh] md:h-[70vh] overflow-hidden">
-  {images.map((img, index) => (
-    <img
-      key={index}
-      src={img.src}
-      alt={img.alt}
-      className={`
-        absolute inset-0
-        w-full h-full
-        object-cover
-        object-center
-        transition-opacity duration-1000
-        ${index === current ? "opacity-100" : "opacity-0"}
-      `}
-    />
-  ))}
-</div>
+
+<img
+  key={index}
+  src={img.src}
+  alt={img.alt}
+  className={`
+    absolute inset-0
+    h-full w-full
+
+    object-contain
+object-center
+
+    transition-opacity duration-1000
+
+    ${
+      index === current
+      ? "opacity-100"
+      : "opacity-0"
+    }
+  `}
+/>
 
 ))
 }
@@ -155,7 +159,7 @@ className="
 container mx-auto px-4
 flex flex-col items-center text-center
 
-min-h-[600px]
+min-h-[700px]
 py-12
 
 sm:min-h-[660px]
