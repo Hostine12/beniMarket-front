@@ -4,6 +4,7 @@ import { Search, ShieldCheck, Truck, Star, Smartphone, CheckCircle2 } from 'luci
 import { motion } from "framer-motion";
 import AnimatedText from "../AnimatedText";
 
+
 const popular = ['Tomates', 'Tissu Wax', 'Karité', 'Bissap', 'Riz local']
 
 // Images du carrousel
@@ -85,10 +86,19 @@ export default function Hero() {
 
 
           {/* Paragraphe animé */}
-          <p className="mt-12 max-w-xl text-base sm:text-lg leading-relaxed text-white/85 animate-fade-up delay-700">
-            BeniMarket connecte les commerçants de confiance près de chez vous à des milliers de clients —
-            des produits locaux de qualité, livrés à domicile en toute sécurité.
-          </p>
+          <motion.p
+  initial={{ opacity: 0, scale: 0.97 }}
+  animate={{ opacity: 1, scale: 1 }}
+  transition={{
+    duration: 0.8,
+    delay: 2.8, // après l'animation du titre
+    ease: "easeOut",
+  }}
+  className="mt-12 max-w-xl text-base sm:text-lg leading-relaxed text-white/85"
+>
+  BeniMarket connecte les commerçants de confiance près de chez vous à des milliers de clients —
+  des produits locaux de qualité, livrés à domicile en toute sécurité.
+</motion.p>
         </div>
       </div>
 
