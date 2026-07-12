@@ -27,14 +27,17 @@ const heroImages = [
   {
     src: "/hero-section1.jpg",
     alt: "Cliente commandant des produits frais",
+    position: "center",
   },
   {
     src: "/hero-section2.jpg",
     alt: "Commerçant local présentant ses produits",
+    position: "right",
   },
   {
     src: "/hero-section3.jpg",
     alt: "Livraison rapide de produits frais",
+    position: "left",
   },
 ];
 
@@ -108,9 +111,7 @@ heroImages.map((img, index) => (
     h-full w-full
 
    object-cover
-object-center
-sm:object-center
-lg:object-right
+${img.position}
 
     transition-opacity duration-1000
 
