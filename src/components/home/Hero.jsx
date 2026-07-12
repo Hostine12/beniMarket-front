@@ -55,39 +55,37 @@ export default function Hero() {
   };
 
   return (
-    // CORRECTION : On met le fond de couleur sombre de ton site directement sur la section
-    <section className="relative w-full overflow-hidden bg-ink-900 text-white min-h-screen">
+    <section className="relative w-full overflow-hidden text-white min-h-screen flex flex-col justify-center">
       
-      {/* ================= CARROUSEL D'IMAGES ================= */}
-      {/* CORRECTION : Hauteur contrôlée sur mobile (h-[50vh]) pour éviter le zoom/étirement horizontal destructeur. Plein écran sur PC (lg:h-full). */}
-      <div className="absolute top-0 left-0 right-0 h-[50vh] sm:h-[60vh] lg:h-full -z-10 overflow-hidden">
-        <div className="relative w-full h-full">
-          {heroImages.map((img, index) => (
-            <img
-              key={index}
-              src={img.src}
-              alt={img.alt}
-              className={`
-                absolute inset-0
-                h-full w-full
-                object-cover
-                object-center
-                transition-opacity duration-1000
-                ${index === current ? "opacity-100" : "opacity-0"}
-              `}
-            />
-          ))}
-        </div>
+      {/* ================= CARROUSEL D'IMAGES (Simplifié et forcé en arrière-plan) ================= */}
+      {/* CORRECTION : h-full w-full absolute inset-0 -z-10 forcent l'image sur tout l'espace et derrière le contenu */}
+      <div className="absolute inset-0 -z-10 w-full h-full overflow-hidden">
+        {heroImages.map((img, index) => (
+          <img
+            key={index}
+            src={img.src}
+            alt={img.alt}
+            className={`
+              absolute inset-0
+              h-full w-full
+              /* CORRECTION : object-cover est essentiel pour ne pas déformer */
+              object-cover
+              object-center 
+              transition-opacity duration-1000
+              ${index === current ? "opacity-100" : "opacity-0"}
+            `}
+          />
+        ))}
 
-        {/* CORRECTION : L'overlay crée un fondu noir transparent vers le bas pour connecter l'image au fond du site sur mobile */}
+        {/* CORRECTION : L'overlay doit aussi couvrir tout l'espace, tout le temps */}
         <div
           className="
             absolute
             inset-0
             bg-gradient-to-t
-            from-ink-900
-            via-ink-900/50
-            to-transparent
+            from-ink-900/95
+            via-ink-900/70
+            to-ink-900/40
 
             lg:bg-gradient-to-r
             lg:from-ink-900/95
@@ -97,15 +95,15 @@ export default function Hero() {
         />
       </div>
 
-      {/* ================= CONTENU DE LA PAGE ================= */}
-      {/* Le conteneur z-10 est transparent. Sur mobile, le texte descend naturellement sur le fond bg-ink-900 de la section */}
-      <div className="relative z-10 w-full pt-[20vh] sm:pt-[25vh] lg:pt-0 pb-16">
+      {/* ================= ENVELOPPE DU CONTENU TEXTE & FORMULAIRE ================= */}
+      {/* Ce bloc est désormais transparent pour laisser voir l'image et l'overlay */}
+      <div className="relative z-10 w-full flex-grow flex flex-col justify-center pb-16">
         
         <div
           className="
             container mx-auto px-4
             flex flex-col items-center text-center
-            lg:min-h-[86vh]
+            pt-16
             lg:flex-row
             lg:text-left
             lg:items-center
@@ -121,11 +119,11 @@ export default function Hero() {
               className="
                 inline-flex items-center gap-2
                 rounded-full
-                bg-black/30 lg:bg-white/10
+                bg-white/10
                 px-3.5 py-1.5
                 text-xs font-semibold text-white
                 ring-1 ring-white/25
-                backdrop-blur-md
+                backdrop-blur
               "
             >
               <span className="h-1.5 w-1.5 rounded-full bg-amber-400 animate-pulse-dot" />
@@ -135,14 +133,13 @@ export default function Hero() {
             {/* TITRE ANIME */}
             <h1
               className="
-                mt-6 mb-6
+                mt-8 mb-6
                 font-display
                 text-4xl
                 sm:text-5xl
                 lg:text-7xl
                 font-extrabold
                 leading-tight
-                drop-shadow-md
               "
             >
               <AnimatedHeroText />
@@ -153,7 +150,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8, duration: 0.8 }}
-              className="mt-6 max-w-xl text-base sm:text-lg leading-relaxed text-white/90"
+              className="mt-10 max-w-xl text-base sm:text-lg leading-relaxed text-white/85"
             >
               BeniMarket connecte les commerçants de confiance près de chez vous à des milliers de clients — des produits locaux de qualité, livrés à domicile en toute sécurité.
             </motion.p>
@@ -202,7 +199,7 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* ================= RECHERCHE & FIN DU BLOC ================= */}
+        {/* ================= RECHERCHE & AUTRES INFO ================= */}
         <div className="container mx-auto px-4 mt-8 lg:mt-12">
           <form onSubmit={go} className="max-w-xl mx-auto lg:mx-0 animate-zoom-in delay-1000">
             <div className="flex flex-col sm:flex-row items-stretch gap-2 rounded-2xl border border-white/30 bg-white/95 p-2 shadow-2xl backdrop-blur">
