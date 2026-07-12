@@ -16,13 +16,14 @@ const messages = [
   },
   {
     text: "100 % béninois.",
-    color: "text-white",
+    color: "text-yellow-400",
   },
 ];
 
 export default function AnimatedHeroText() {
   const [messageIndex, setMessageIndex] = useState(0);
   const [displayed, setDisplayed] = useState("");
+  const [typing, setTyping] = useState(true);
 
   useEffect(() => {
     let typingInterval;
@@ -32,6 +33,7 @@ export default function AnimatedHeroText() {
     let i = 0;
 
     setDisplayed("");
+    setTyping(true);
 
     typingInterval = setInterval(() => {
       i++;
@@ -40,6 +42,7 @@ export default function AnimatedHeroText() {
 
       if (i === current.length) {
         clearInterval(typingInterval);
+        setTyping(false);
 
         nextTimeout = setTimeout(() => {
           setMessageIndex((prev) => (prev + 1) % messages.length);
@@ -55,11 +58,23 @@ export default function AnimatedHeroText() {
 
   return (
     <div>
-      <div className="text-white">
+      <motion.div
+        className="text-white"
+        animate={{
+          y: [0, -3, 0],
+          scale: [1, 1.02, 1],
+          opacity: [0.95, 1, 0.95],
+        }}
+        transition={{
+          duration: 4,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      >
         Votre marché,
-      </div>
+      </motion.div>
 
-      <div className="h-[80px] overflow-hidden">
+      <div className="min-h-[140px] overflow-visible">
         <AnimatePresence mode="wait">
           <motion.div
             key={messageIndex}
@@ -71,15 +86,17 @@ export default function AnimatedHeroText() {
           >
             {displayed}
 
-            <motion.span
-              animate={{ opacity: [0, 1, 0] }}
-              transition={{
-                duration: 0.8,
-                repeat: Infinity,
-              }}
-            >
-              ▌
-            </motion.span>
+            {typing && (
+              <motion.span
+                animate={{ opacity: [0, 1, 0] }}
+                transition={{
+                  duration: 0.8,
+                  repeat: Infinity,
+                }}
+              >
+                ▌
+              </motion.span>
+            )}
           </motion.div>
         </AnimatePresence>
       </div>
