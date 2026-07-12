@@ -87,16 +87,20 @@ export default function Hero() {
 
 {
 heroImages.map((img,index)=>(
-
 <img
 key={index}
-src={img.src}
-alt={img.alt}
-className={`
-absolute inset-0 h-full w-full object-cover
-transition-opacity duration-1000
-${index === current ? "opacity-100" : "opacity-0"}
-`}
+  src={img.src}
+  alt={img.alt}
+  className={`
+    absolute inset-0
+    h-full w-full
+    object-cover
+    object-center
+    sm:object-center
+    lg:object-right
+    transition-opacity duration-1000
+    ${index === current ? "opacity-100" : "opacity-0"}
+  `}
 />
 
 ))
@@ -277,13 +281,12 @@ relative
 delay={0}
 
 className="
-hidden xl:block
+hidden lg:block
 
 pointer-events-none
 
 absolute
-right-6
-top-24
+right-10 top-20
 
 w-52
 
@@ -355,8 +358,7 @@ hidden lg:block
 pointer-events-none
 
 absolute
-bottom-8
-right-6
+right-10 bottom-20
 
 w-52
 
@@ -428,9 +430,7 @@ hidden lg:block
 
 absolute
 
-top-6
-
-right-6
+right-16 top-64
 
 w-52
 
@@ -502,7 +502,7 @@ absolute
 
 inset-y-0
 
-right-36
+right-64
 
 items-center
 
