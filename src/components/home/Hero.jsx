@@ -62,18 +62,34 @@ export default function Hero() {
 
           {/* Titre animé */}
          <motion.h1
-  initial={{ opacity: 0, y: 40 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{
-    duration: 1.2,
-    ease: "easeOut",
-    delay: 0.3,
-  }}
   className="mt-8 mb-6 font-display text-2xl sm:text-4xl lg:text-[3rem] font-extrabold leading-snug text-white"
 >
-  <span className="text-orange-400">Achetez frais</span>,
-  <span className="text-green-500"> payez par Mobile Money</span>,
-  <span className="text-white"> recevez rapidement</span>.
+  <motion.span
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.8 }}
+    className="text-orange-400"
+  >
+    Achetez frais
+  </motion.span>
+
+  <motion.span
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.8, delay: 0.6 }}
+    className="text-green-500"
+  >
+    {" "}payez par Mobile Money
+  </motion.span>
+
+  <motion.span
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.8, delay: 1.2 }}
+    className="text-white"
+  >
+    {" "}recevez rapidement.
+  </motion.span>
 </motion.h1>
 
 
