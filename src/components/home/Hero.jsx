@@ -55,13 +55,14 @@ export default function Hero() {
   };
 
   return (
-    // La section prend la couleur officielle de ton site
-    <section className="relative w-full overflow-hidden bg-ink-900 text-white min-h-screen flex flex-col justify-between">
+    // On force un contexte d'empilement propre
+    <section className="relative w-full overflow-hidden bg-ink-900 text-white min-h-screen isolation-auto">
 
-      {/* ================= CONTENEUR GRAPHIQUE (DÉCORATION MOBILE & ARRIÈRE-PLAN DESKTOP) ================= */}
-      {/* Sur Mobile (relative h-[48vw]) : L'image prend toute la largeur de l'écran avec un ratio parfait sans zoom destructeur. */}
-      {/* Sur Desktop (lg:absolute lg:inset-0) : L'image repasse en arrière-plan strict derrière tes textes et cartes. */}
-      <div className="relative w-full h-[52vw] max-h-[380px] sm:h-[45vh] lg:absolute lg:inset-0 lg:h-full lg:w-full lg:-z-10 overflow-hidden">
+      {/* ================= CARROUSEL D'IMAGES (Arrière-plan absolu et universel) ================= */}
+      {/* Sur mobile : h-[60vh] max pour garder de superbes proportions horizontales.
+        Sur desktop : lg:h-full pour prendre tout l'écran.
+      */}
+      <div className="absolute top-0 left-0 right-0 z-0 h-[55vh] sm:h-[65vh] lg:h-full w-full overflow-hidden">
         <div className="relative w-full h-full">
           {heroImages.map((img, index) => (
             <img
@@ -80,18 +81,21 @@ export default function Hero() {
           ))}
         </div>
 
-        {/* GRADIENT ADAPTATIF : Uniquement actif sur Desktop pour fondre l'image à droite vers le texte à gauche */}
-        <div className="absolute inset-0 bg-gradient-to-t from-ink-900 via-transparent to-transparent lg:bg-gradient-to-r lg:from-ink-900/95 lg:via-ink-900/60 lg:to-transparent" />
+        {/* PROPRIÉTÉ DU NOIR (OVERLAY) : 
+          - Sur mobile : 'hidden' -> AUCUN noir, aucun dégradé, l'image est 100% lumineuse et nette.
+          - Sur desktop : 'lg:block bg-gradient-to-r' -> recrée ton dégradé horizontal d'origine de gauche à droite.
+        */}
+        <div className="hidden lg:block absolute inset-0 z-10 bg-gradient-to-r lg:from-ink-900/95 lg:via-ink-900/60 lg:to-transparent" />
       </div>
-      
 
-      {/* ================= ZONE DU TEXTE PRINCIPAL ================= */}
-      {/* Le texte vient se placer naturellement sous l'image en mobile, éliminant tout conflit d'étirement */}
+      {/* ================= ZONE DE CONTENU PRINCIPAL ================= */}
+      {/* z-20 pour passer au-dessus des images à coup sûr */}
       <div
         className="
-          container mx-auto px-4 flex-grow
+          relative z-20
+          container mx-auto px-4
           flex flex-col items-center text-center
-          pt-8 pb-4
+          pt-[48vh] sm:pt-[55vh] pb-12
           lg:pt-0 lg:pb-0
           lg:min-h-[86vh]
           lg:flex-row
@@ -100,6 +104,7 @@ export default function Hero() {
           lg:justify-between
         "
       >
+        {/* Le texte commencera pile poil là où l'image se termine sur mobile, sur le fond bg-ink-900 propre du site */}
         <div className="max-w-2xl w-full">
           {/* Badge */}
           <motion.span
@@ -136,7 +141,7 @@ export default function Hero() {
           </motion.p>
         </div>
 
-        {/* ================= VOS CARTES FLOTTANTES DESKTOP (Restauration stricte) ================= */}
+        {/* ================= VOS CARTES FLOTTANTES DESKTOP RESTAURÉES ================= */}
         <div className="hidden lg:block relative">
           <FloatingCard delay={0} className="pointer-events-none absolute right-10 top-20 w-52 rounded-2xl bg-white/95 p-3.5 shadow-2xl ring-1 ring-ink-900/5 backdrop-blur">
             <div className="flex items-center gap-2.5">
@@ -183,7 +188,7 @@ export default function Hero() {
       </div>
 
       {/* ================= BARRE DE RECHERCHE ET BADGES INFÉRIEURS ================= */}
-      <div className="container mx-auto px-4 pb-8 z-10">
+      <div className="relative z-20 container mx-auto px-4 pb-12">
         <form onSubmit={go} className="max-w-xl mx-auto lg:mx-0 animate-zoom-in delay-1000">
           <div className="flex flex-col sm:flex-row items-stretch gap-2 rounded-2xl border border-white/30 bg-white/95 p-2 shadow-2xl backdrop-blur">
             <div className="flex items-center flex-1">
