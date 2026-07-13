@@ -117,10 +117,10 @@ export default function ClientDashboard() {
       navItems={navItems}
     >
       {/* Conteneur de sécurité global anti-débordement sur mobile */}
-      <div className="w-full max-w-full overflow-x-hidden px-0.5">
+      <div className="w-full max-w-full overflow-x-hidden px-1 sm:px-2">
         
         {/* GRILLE STATS */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
           <StatCard icon="Package" label="Commandes" value={orders.length.toString()} tone="teal" />
           <StatCard icon="Wallet" label="Total dépensé" value={formatXOF(totalSpent)} tone="amber" />
           <StatCard icon="Bell" label="Notifications" value={unreadCount.toString()} tone="plum" />
@@ -131,13 +131,13 @@ export default function ClientDashboard() {
         {otpCode && (
           <div className="mt-5 overflow-hidden rounded-3xl shadow-xl ring-2 ring-amber-400 w-full">
             <div className="bg-gradient-to-r from-amber-500 to-orange-500 px-4 py-5 sm:px-6 sm:py-6 text-white">
-              <div className="flex flex-col lg:flex-row items-center justify-between gap-5">
-                <div className="flex-1 text-center lg:text-left min-w-0 w-full">
-                  <div className="flex items-center justify-center lg:justify-start gap-2 mb-1">
+              <div className="flex flex-col md:flex-row items-center justify-between gap-5">
+                <div className="flex-1 text-center md:text-left min-w-0 w-full">
+                  <div className="flex items-center justify-center md:justify-start gap-2 mb-1">
                     <span className="h-2.5 w-2.5 rounded-full bg-white animate-ping shrink-0" />
                     <p className="text-sm font-bold uppercase tracking-widest truncate">Livreur à votre porte !</p>
                   </div>
-                  <p className="text-amber-100 text-sm mt-1 max-w-xl mx-auto lg:mx-0 break-words">
+                  <p className="text-amber-100 text-sm mt-1 max-w-xl mx-auto md:mx-0 break-words">
                     Donnez ce code à votre livreur pour confirmer la réception du colis.
                   </p>
                   {otpOrderId && (
@@ -150,10 +150,10 @@ export default function ClientDashboard() {
                   )}
                 </div>
 
-                <div className="shrink-0 w-full sm:w-auto flex flex-col items-center gap-2">
-                  <div className="flex items-center justify-center gap-3 bg-white/20 backdrop-blur-sm rounded-2xl px-4 py-3 sm:px-6 w-full sm:w-auto">
-                    <KeyRound size={20} className="text-white shrink-0" />
-                    <span className="font-display text-3xl sm:text-4xl md:text-5xl font-bold tracking-[0.2em] sm:tracking-[0.5em] text-white select-all">
+                <div className="shrink-0 w-full md:w-auto flex flex-col items-center gap-2">
+                  <div className="flex items-center justify-center gap-2 sm:gap-3 bg-white/20 backdrop-blur-sm rounded-2xl px-3 py-2.5 sm:px-5 sm:py-3 w-full md:w-auto">
+                    <KeyRound size={18} className="text-white shrink-0" />
+                    <span className="font-display text-2xl sm:text-3xl md:text-4xl font-bold tracking-[0.1em] sm:tracking-[0.3em] text-white select-all">
                       {otpCode}
                     </span>
                   </div>
@@ -188,16 +188,16 @@ export default function ClientDashboard() {
                 ) : (
                   <ul className="divide-y divide-ink-100 overflow-hidden w-full">
                     {orders.slice(0, 5).map(o => (
-                      <li key={o.id} className={`flex items-center justify-between gap-4 px-4 sm:px-5 py-4 hover:bg-ink-50 border-l-4 ${statusColor[o.status] || 'border-transparent'}`}>
+                      <li key={o.id} className={`flex flex-row items-center justify-between gap-3 px-4 sm:px-5 py-4 hover:bg-ink-50 border-l-4 ${statusColor[o.status] || 'border-transparent'}`}>
                         <div className="min-w-0 flex-1">
                           <p className="text-sm font-semibold text-ink-900 truncate">{o.reference}</p>
                           <p className="text-xs text-ink-400 mt-0.5 truncate">
-                            {o.items?.length || 0} article(s) · {formatXOF(o.total)}
+                            {o.items?.length || 0} art. · {formatXOF(o.total)}
                           </p>
                         </div>
-                        <div className="flex flex-col items-end gap-1.5 shrink-0">
+                        <div className="flex flex-col items-end gap-1 shrink-0">
                           <StatusBadge status={o.status} />
-                          <Link to={`/suivi/${o.id}`} className="text-xs text-teal-600 hover:underline flex items-center gap-0.5">
+                          <Link to={`/suivi/${o.id}`} className="text-xs text-teal-600 hover:underline flex items-center gap-0.5 mt-0.5">
                             Suivre <ChevronRight size={11} />
                           </Link>
                         </div>
@@ -219,13 +219,13 @@ export default function ClientDashboard() {
                     <p className="text-xs text-teal-100 relative z-10 truncate">{user.email || user.phone}</p>
                   </div>
                   <div className="p-4 grid grid-cols-2 gap-3 w-full">
-                    <div className="rounded-xl bg-ink-50 p-3 text-center min-w-0">
-                      <p className="text-xl font-bold text-ink-900 truncate">{orders.length}</p>
-                      <p className="text-xs text-ink-400 mt-0.5 truncate">Commandes</p>
+                    <div className="rounded-xl bg-ink-50 p-2.5 sm:p-3 text-center min-w-0">
+                      <p className="text-base sm:text-xl font-bold text-ink-900 truncate">{orders.length}</p>
+                      <p className="text-[10px] sm:text-xs text-ink-400 mt-0.5 truncate">Commandes</p>
                     </div>
-                    <div className="rounded-xl bg-emerald-50 p-3 text-center min-w-0">
-                      <p className="text-xl font-bold text-emerald-700 truncate">{deliveredCount}</p>
-                      <p className="text-xs text-ink-400 mt-0.5 truncate">Livrées</p>
+                    <div className="rounded-xl bg-emerald-50 p-2.5 sm:p-3 text-center min-w-0">
+                      <p className="text-base sm:text-xl font-bold text-emerald-700 truncate">{deliveredCount}</p>
+                      <p className="text-[10px] sm:text-xs text-ink-400 mt-0.5 truncate">Livrées</p>
                     </div>
                   </div>
                 </div>
@@ -267,7 +267,7 @@ export default function ClientDashboard() {
                     </div>
                     <div className="min-w-0 flex-1">
                       <p className="text-xs text-ink-500 truncate">Total dépensé</p>
-                      <p className="font-bold text-amber-700 text-lg truncate">{formatXOF(totalSpent)}</p>
+                      <p className="font-bold text-amber-700 text-base sm:text-lg truncate">{formatXOF(totalSpent)}</p>
                     </div>
                   </div>
                 </div>
@@ -301,12 +301,12 @@ export default function ClientDashboard() {
                         </div>
                       </div>
                       <div className="flex items-center gap-2 shrink-0 w-full sm:w-auto justify-between sm:justify-start mt-3 sm:mt-0">
-                        <Link to={`/suivi/${o.id}`} className="flex-1 sm:flex-none text-center text-xs font-semibold bg-ink-50 hover:bg-ink-100 px-3 py-2 rounded-xl transition-colors">
+                        <Link to={`/suivi/${o.id}`} className="flex-1 sm:flex-none text-center text-xs font-semibold bg-ink-50 hover:bg-ink-100 px-3 py-2.5 rounded-xl transition-colors">
                           Suivre
                         </Link>
                         <button
                           onClick={() => setDisputeModal({ isOpen: true, orderId: o.id, orderRef: o.reference })}
-                          className="flex-1 sm:flex-none flex items-center justify-center gap-1 text-xs font-semibold text-red-600 bg-red-50 hover:bg-red-100 px-3 py-2 rounded-xl transition-colors"
+                          className="flex-1 sm:flex-none flex items-center justify-center gap-1 text-xs font-semibold text-red-600 bg-red-50 hover:bg-red-100 px-3 py-2.5 rounded-xl transition-colors"
                         >
                           <AlertTriangle size={12} /> Litige
                         </button>
