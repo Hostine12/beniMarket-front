@@ -135,41 +135,119 @@ export default function Hero() {
         </div>
 
         {/* ================= CARTES FLOTTANTES RESTAURÉES ================= */}
-        <div className="hidden lg:block relative">
-          
+       <div className="hidden lg:block relative h-[500px]">
 
-          <FloatingCard delay={0.8} className="pointer-events-none absolute right-10 bottom-20 w-52 rounded-2xl bg-white/95 p-3.5 shadow-2xl ring-1 ring-ink-900/5 backdrop-blur">
-            <div className="flex items-center gap-2.5">
-              <span className="grid h-10 w-10 place-items-center rounded-xl bg-emerald-50 text-emerald-600"><CheckCircle2 size={20}/></span>
-              <div className="leading-tight">
-                <p className="text-xs text-ink-400">Commande confirmée</p>
-                <p className="text-sm font-bold text-ink-900">En route · 30 min</p>
-              </div>
-            </div>
-          </FloatingCard>
+  {/* Carte commande */}
+  <FloatingCard
+    delay={0.8}
+    className="
+      pointer-events-none absolute 
+      right-4 bottom-24 
+      w-56 rounded-2xl 
+      bg-white/95 p-4 
+      shadow-2xl 
+      ring-1 ring-black/5 
+      backdrop-blur
+    "
+  >
+    <div className="flex items-center gap-3">
+      <span className="
+        grid h-11 w-11 place-items-center 
+        rounded-xl bg-emerald-50 
+        text-emerald-600
+      ">
+        <CheckCircle2 size={22}/>
+      </span>
 
-          <FloatingCard delay={1.5} className="absolute right-16 top-64 w-52 rounded-2xl bg-white/95 p-3.5 shadow-2xl ring-1 ring-black/5 backdrop-blur">
-            <div className="flex items-center gap-2.5">
-              <span className="grid h-10 w-10 place-items-center rounded-xl bg-green-50 text-green-600">⚡</span>
-              <div className="leading-tight">
-                <p className="text-xs text-gray-500">Livraison express</p>
-                <p className="text-sm font-semibold text-orange-400">En route · 30 min</p>
-              </div>
-            </div>
-          </FloatingCard>
+      <div className="leading-tight">
+        <p className="text-xs text-gray-500">
+          Commande confirmée
+        </p>
+        <p className="text-sm font-bold text-gray-900">
+          Livraison en cours
+        </p>
+      </div>
+    </div>
+  </FloatingCard>
 
-          <FloatingCard delay={2.2} className="flex absolute top-54 right-0 items-center justify-center">
-            <div className="w-52 rounded-2xl bg-white/95 p-3.5 shadow-2xl ring-1 ring-black/5 backdrop-blur">
-              <div className="flex items-center gap-2.5">
-                <span className="grid h-10 w-10 place-items-center rounded-xl bg-orange-50 text-orange-500">🥬</span>
-                <div className="leading-tight">
-                  <p className="text-xs text-gray-500">Produits locaux</p>
-                  <p className="text-sm font-semibold text-green-500">100% frais</p>
-                </div>
-              </div>
-            </div>
-          </FloatingCard>
-        </div>
+
+  {/* Carte livraison */}
+  <FloatingCard
+    delay={1.5}
+    className="
+      absolute 
+      right-20 top-44
+      w-56 rounded-2xl 
+      bg-white/95 p-4 
+      shadow-2xl 
+      ring-1 ring-black/5 
+      backdrop-blur
+    "
+  >
+    <div className="flex items-center gap-3">
+
+      <span className="
+        grid h-11 w-11 place-items-center 
+        rounded-xl bg-green-50 
+        text-green-600 text-xl
+      ">
+        ⚡
+      </span>
+
+      <div className="leading-tight">
+        <p className="text-xs text-gray-500">
+          Livraison rapide
+        </p>
+
+        <p className="text-sm font-bold text-green-600">
+          En moins de 30 min
+        </p>
+      </div>
+
+    </div>
+  </FloatingCard>
+
+
+
+  {/* Carte produits */}
+  <FloatingCard
+    delay={2.2}
+    className="
+      absolute 
+      right-0 top-72
+      w-56 rounded-2xl 
+      bg-white/95 p-4 
+      shadow-2xl 
+      ring-1 ring-black/5 
+      backdrop-blur
+    "
+  >
+
+    <div className="flex items-center gap-3">
+
+      <span className="
+        grid h-11 h-11 place-items-center 
+        rounded-xl bg-lime-50 
+        text-xl
+      ">
+        🥬
+      </span>
+
+      <div className="leading-tight">
+        <p className="text-xs text-gray-500">
+          Produits locaux
+        </p>
+
+        <p className="text-sm font-bold text-emerald-600">
+          100% frais
+        </p>
+      </div>
+
+    </div>
+
+  </FloatingCard>
+
+</div>
       </div>
 
       {/* ================= BARRE DE RECHERCHE ET BADGES INFÉRIEURS ================= */}
