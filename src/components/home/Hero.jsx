@@ -199,7 +199,7 @@ export default function Hero() {
           Livraison rapide
         </p>
 
-        <p className="text-sm font-bold text-green-600">
+        <p className="text-sm font-bold text-gray-900">
           En moins de 30 min
         </p>
       </div>
@@ -238,7 +238,7 @@ export default function Hero() {
           Produits locaux
         </p>
 
-        <p className="text-sm font-bold text-emerald-600">
+        <p className="text-sm font-bold text-gray-900">
           100% frais
         </p>
       </div>
