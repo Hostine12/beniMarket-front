@@ -176,7 +176,7 @@ export default function Hero() {
     delay={1.5}
     className="
       absolute 
-      right-34 top-48
+      right-14 top-20
       w-56 rounded-2xl 
       bg-white/95 p-4 
       shadow-2xl 
