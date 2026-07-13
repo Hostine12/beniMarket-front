@@ -142,7 +142,7 @@ export default function Hero() {
     delay={0.8}
     className="
       pointer-events-none absolute 
-      right-4 bottom-2
+      right-20 bottom-10
       w-56 rounded-2xl 
       bg-white/95 p-4 
       shadow-2xl 
