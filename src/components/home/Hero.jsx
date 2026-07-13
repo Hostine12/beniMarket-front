@@ -166,7 +166,7 @@ export default function Hero() {
             </div>
           </FloatingCard>
 
-          <FloatingCard delay={2.2} className="flex absolute inset-y-0 right-64 items-center justify-center">
+          <FloatingCard delay={2.2} className="flex absolute inset-y-0 right-24 items-center justify-center">
             <div className="w-52 rounded-2xl bg-white/95 p-3.5 shadow-2xl ring-1 ring-black/5 backdrop-blur">
               <div className="flex items-center gap-2.5">
                 <span className="grid h-10 w-10 place-items-center rounded-xl bg-orange-50 text-orange-500">🥬</span>
