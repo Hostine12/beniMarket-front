@@ -80,16 +80,19 @@ export default function Hero() {
         </div>
 
         {/* GRADIENT DE LISIBILITÉ ULTRA-PROPRE */}
-        <div
-          className="
-            absolute inset-0 z-10
-            bg-gradient-to-t
-            from-ink-900 via-ink-900/75 to-transparent
+        {/* GRADIENT DE LISIBILITÉ AJUSTÉ : Plus net en bas, le fondu ne commence qu'à la toute fin */}
+<div
+  className="
+    absolute inset-0 z-10
+    bg-gradient-to-t
+    from-ink-900 via-ink-900/40 to-transparent
+    from-85% via-95%
 
-            lg:bg-gradient-to-r
-            lg:from-ink-900/95 lg:via-ink-900/60 lg:to-transparent
-          "
-        />
+    lg:bg-gradient-to-r
+    lg:from-ink-900/95 lg:via-ink-900/60 lg:to-transparent
+    lg:from-0% lg:via-50%
+  "
+/>
       </div>
 
       {/* ================= BLOC CONTENU PRINCIPAL ================= */}
