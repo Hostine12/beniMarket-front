@@ -36,7 +36,10 @@ export default function TrustBar() {
               key={label}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{
+                once: false,
+                amount: 0.5,
+              }}
               transition={{
                 duration: 0.7,
                 delay: index * 0.25,
@@ -92,10 +95,10 @@ export default function TrustBar() {
                       end={end}
                       duration={2.8}
                       separator=" "
+                      suffix={suffix}
                       enableScrollSpy
-                      scrollSpyOnce
+                      scrollSpyDelay={150}
                     />
-                    {suffix}
                   </motion.p>
 
                   <p className="mt-1 text-sm text-ink-500">
