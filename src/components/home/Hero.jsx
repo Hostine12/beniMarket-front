@@ -61,9 +61,8 @@ export default function Hero() {
       {/* ================= CONTENEUR GRAPHIQUE (DÉCORATION MOBILE & ARRIÈRE-PLAN DESKTOP) ================= */}
       {/* Sur Mobile (relative h-[48vw]) : L'image prend toute la largeur de l'écran avec un ratio parfait sans zoom destructeur. */}
       {/* Sur Desktop (lg:absolute lg:inset-0) : L'image repasse en arrière-plan strict derrière tes textes et cartes. */}
-   
-      {/* MODIFICATION : h-[75vw] au lieu de h-[52vw] pour agrandir l'image vers le bas sur mobile */}
-<div className="relative w-full h-[75vw] sm:h-[50vh] lg:absolute lg:inset-0 lg:h-full lg:w-full lg:-z-10 overflow-hidden">
+      <div className="relative w-full h-[52vw] max-h-[380px] sm:h-[45vh] lg:absolute lg:inset-0 lg:h-full lg:w-full lg:-z-10 overflow-hidden">
+      
         <div className="relative w-full h-full">
           {heroImages.map((img, index) => (
             <img
@@ -83,8 +82,7 @@ export default function Hero() {
         </div>
 
         {/* GRADIENT ADAPTATIF : Uniquement actif sur Desktop pour fondre l'image à droite vers le texte à gauche */}
-       {/* Le dégradé noir est maintenant masqué sur mobile (hidden) et s'affiche uniquement sur desktop (lg:block) */}
-<div className="hidden lg:block absolute inset-0 bg-gradient-to-r lg:from-ink-900/95 lg:via-ink-900/60 lg:to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-ink-900 via-transparent to-transparent lg:bg-gradient-to-r lg:from-ink-900/95 lg:via-ink-900/60 lg:to-transparent" />
       </div>
 
       {/* ================= ZONE DU TEXTE PRINCIPAL ================= */}
