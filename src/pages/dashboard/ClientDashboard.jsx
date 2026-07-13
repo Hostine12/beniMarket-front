@@ -116,7 +116,7 @@ export default function ClientDashboard() {
       subtitle="Voici un résumé de votre activité"
       navItems={navItems}
     >
-      {/* Grille responsive pour les StatCards (1 col sur très petit mobile, 2 sur mobile/phablet, 4 sur desktop) */}
+      {/* ── GRILLE DE STATISTIQUES RESPONSIVE ── */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
         <StatCard icon="Package" label="Commandes" value={orders.length.toString()} tone="teal" />
         <StatCard icon="Wallet" label="Total dépensé" value={formatXOF(totalSpent)} tone="amber" />
@@ -129,12 +129,12 @@ export default function ClientDashboard() {
         <div className="mt-5 overflow-hidden rounded-3xl shadow-xl ring-2 ring-amber-400">
           <div className="bg-gradient-to-r from-amber-500 to-orange-500 px-4 py-5 sm:px-6 sm:py-6 text-white">
             <div className="flex flex-col lg:flex-row items-center justify-between gap-5">
-              <div className="flex-1 text-center lg:text-left">
+              <div className="flex-1 text-center lg:text-left min-w-0">
                 <div className="flex items-center justify-center lg:justify-start gap-2 mb-1">
-                  <span className="h-2.5 w-2.5 rounded-full bg-white animate-ping" />
-                  <p className="text-sm font-bold uppercase tracking-widest">Livreur à votre porte !</p>
+                  <span className="h-2.5 w-2.5 rounded-full bg-white animate-ping shrink-0" />
+                  <p className="text-sm font-bold uppercase tracking-widest truncate">Livreur à votre porte !</p>
                 </div>
-                <p className="text-amber-100 text-sm mt-1 max-w-xl mx-auto lg:mx-0">
+                <p className="text-amber-100 text-sm mt-1 max-w-xl mx-auto lg:mx-0 break-words">
                   Donnez ce code à votre livreur pour confirmer la réception du colis.
                 </p>
                 {otpOrderId && (
@@ -147,11 +147,10 @@ export default function ClientDashboard() {
                 )}
               </div>
 
-              {/* Conteneur du code OTP adapté aux écrans étroits */}
               <div className="shrink-0 w-full sm:w-auto flex flex-col items-center gap-2">
                 <div className="flex items-center justify-center gap-3 bg-white/20 backdrop-blur-sm rounded-2xl px-4 py-3 sm:px-6 w-full sm:w-auto">
                   <KeyRound size={20} className="text-white shrink-0" />
-                  <span className="font-display text-3xl sm:text-4xl md:text-5xl font-bold tracking-[0.2em] sm:tracking-[0.4em] text-white select-all overflow-hidden text-ellipsis">
+                  <span className="font-display text-3xl sm:text-4xl md:text-5xl font-bold tracking-[0.2em] sm:tracking-[0.5em] text-white select-all overflow-hidden text-ellipsis">
                     {otpCode}
                   </span>
                 </div>
@@ -167,8 +166,8 @@ export default function ClientDashboard() {
           <div className="grid gap-6 lg:grid-cols-3 animate-fade-in">
             {/* Commandes récentes */}
             <div className="lg:col-span-2 card overflow-hidden flex flex-col">
-              <div className="flex items-center justify-between border-b border-ink-100 px-5 py-4">
-                <h2 className="font-display text-base font-bold text-ink-900">Commandes récentes</h2>
+              <div className="flex items-center justify-between border-b border-ink-100 px-4 sm:px-5 py-4">
+                <h2 className="font-display text-base font-bold text-ink-900 truncate mr-2">Commandes récentes</h2>
                 <a href="#orders" className="flex items-center gap-1 text-xs font-semibold text-teal-700 hover:underline shrink-0">
                   Tout voir <ChevronRight size={13} />
                 </a>
@@ -232,9 +231,9 @@ export default function ClientDashboard() {
               <div className="card p-4">
                 <h3 className="font-bold text-ink-900 text-sm mb-3 flex items-center gap-2">
                   <Bell size={15} className="text-teal-600 shrink-0" />
-                  <span className="truncate">Notifications</span>
+                  <span className="truncate flex-1">Notifications</span>
                   {unreadCount > 0 && (
-                    <span className="ml-auto bg-red-100 text-red-600 text-xs px-2 py-0.5 rounded-full font-semibold shrink-0">
+                    <span className="bg-red-100 text-red-600 text-xs px-2 py-0.5 rounded-full font-semibold shrink-0">
                       {unreadCount}
                     </span>
                   )}
@@ -275,7 +274,7 @@ export default function ClientDashboard() {
 
         {activeTab === 'orders' && (
           <div className="card max-w-4xl overflow-hidden animate-fade-in">
-            <div className="px-5 py-4 border-b border-ink-100">
+            <div className="px-4 sm:px-5 py-4 border-b border-ink-100">
               <h2 className="font-display text-lg font-bold text-ink-900">Toutes mes commandes</h2>
               <p className="text-xs text-ink-400 mt-0.5">{orders.length} commande(s)</p>
             </div>
@@ -298,13 +297,14 @@ export default function ClientDashboard() {
                         <StatusBadge status={o.status} />
                       </div>
                     </div>
-                    <div className="flex items-center gap-2 shrink-0 w-full sm:w-auto justify-end sm:justify-start">
-                      <Link to={`/suivi/${o.id}`} className="btn-ghost btn-sm text-sm px-4 py-2 bg-ink-50 rounded-xl hover:bg-ink-100">
+                    {/* Boutons flex-1 sur mobile pour prendre toute la largeur équitablement */}
+                    <div className="flex items-center gap-2 shrink-0 w-full sm:w-auto justify-between sm:justify-start mt-1 sm:mt-0">
+                      <Link to={`/suivi/${o.id}`} className="flex-1 sm:flex-none text-center text-xs font-semibold bg-ink-50 hover:bg-ink-100 px-3 py-2 rounded-xl transition-colors">
                         Suivre
                       </Link>
                       <button
                         onClick={() => setDisputeModal({ isOpen: true, orderId: o.id, orderRef: o.reference })}
-                        className="flex items-center gap-1 text-xs font-semibold text-red-600 bg-red-50 hover:bg-red-100 px-3 py-2 rounded-xl transition-colors"
+                        className="flex-1 sm:flex-none flex items-center justify-center gap-1 text-xs font-semibold text-red-600 bg-red-50 hover:bg-red-100 px-3 py-2 rounded-xl transition-colors"
                       >
                         <AlertTriangle size={12} /> Litige
                       </button>
@@ -318,7 +318,7 @@ export default function ClientDashboard() {
 
         {activeTab === 'notifications' && (
           <div className="card max-w-2xl overflow-hidden animate-fade-in">
-            <div className="px-5 py-4 border-b border-ink-100 flex items-center justify-between gap-4">
+            <div className="px-4 sm:px-5 py-4 border-b border-ink-100 flex items-center justify-between gap-4">
               <h2 className="font-display text-lg font-bold text-ink-900 truncate">Notifications</h2>
               {notifications.filter(n => !n.read_at).length > 0 && (
                 <span className="text-xs bg-teal-100 text-teal-700 px-2.5 py-1 rounded-full font-semibold shrink-0">
@@ -357,7 +357,7 @@ export default function ClientDashboard() {
         {activeTab === 'profile' && <ProfileSettings />}
       </div>
 
-      {/* MODAL RESPONSIVE */}
+      {/* ── MODAL DE LITIGE PARFAITEMENT RESPONSIVE ── */}
       {disputeModal.isOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-x-hidden overflow-y-auto">
           <div className="absolute inset-0 bg-ink-900/40 backdrop-blur-sm" onClick={() => setDisputeModal({ isOpen: false, orderId: null, orderRef: '' })} />
