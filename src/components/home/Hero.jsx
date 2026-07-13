@@ -81,8 +81,8 @@ export default function Hero() {
         </div>
 
         {/* GRADIENT ADAPTATIF : Uniquement actif sur Desktop pour fondre l'image à droite vers le texte à gauche */}
-        <div className="absolute inset-0 bg-gradient-to-t from-ink-900 via-transparent to-transparent lg:bg-gradient-to-r lg:from-ink-900/95 lg:via-ink-900/60 lg:to-transparent" />
-      </div>
+      //   <div className="absolute inset-0 bg-gradient-to-t from-ink-900 via-transparent to-transparent lg:bg-gradient-to-r lg:from-ink-900/95 lg:via-ink-900/60 lg:to-transparent" />
+      // </div>
 
       {/* ================= ZONE DU TEXTE PRINCIPAL ================= */}
       {/* Le texte vient se placer naturellement sous l'image en mobile, éliminant tout conflit d'étirement */}
