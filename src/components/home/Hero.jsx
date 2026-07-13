@@ -55,12 +55,13 @@ export default function Hero() {
   };
 
   return (
-    // On s'assure que la section s'adapte à la hauteur de son contenu
-    <section className="relative w-full overflow-hidden bg-ink-900 text-white min-h-screen flex flex-col justify-between isolation-auto">
+    // La section prend la couleur officielle de ton site
+    <section className="relative w-full overflow-hidden bg-ink-900 text-white min-h-screen flex flex-col justify-between">
 
-      {/* ================= CARROUSEL D'IMAGES EN ARRIÈRE-PLAN ================= */}
-      {/* CORRECTION : h-full force l'image à couvrir TOUTE la hauteur du texte, même si le texte est très long sur mobile */}
-      <div className="absolute inset-0 z-0 w-full h-full overflow-hidden">
+      {/* ================= CONTENEUR GRAPHIQUE (DÉCORATION MOBILE & ARRIÈRE-PLAN DESKTOP) ================= */}
+      {/* Sur Mobile (relative h-[48vw]) : L'image prend toute la largeur de l'écran avec un ratio parfait sans zoom destructeur. */}
+      {/* Sur Desktop (lg:absolute lg:inset-0) : L'image repasse en arrière-plan strict derrière tes textes et cartes. */}
+      <div className="relative w-full h-[52vw] max-h-[380px] sm:h-[45vh] lg:absolute lg:inset-0 lg:h-full lg:w-full lg:-z-10 overflow-hidden">
         <div className="relative w-full h-full">
           {heroImages.map((img, index) => (
             <img
@@ -79,17 +80,17 @@ export default function Hero() {
           ))}
         </div>
 
-        {/* CORRECTION OVERLAY : Un voile noir uniforme et léger (bg-black/50) à la place du dégradé agressif. L'image reste nette, colorée et visible de haut en bas. */}
-        <div className="absolute inset-0 z-10 bg-black/55 lg:bg-gradient-to-r lg:from-ink-900/95 lg:via-ink-900/60 lg:to-transparent" />
+        {/* GRADIENT ADAPTATIF : Uniquement actif sur Desktop pour fondre l'image à droite vers le texte à gauche */}
+        <div className="absolute inset-0 bg-gradient-to-t from-ink-900 via-transparent to-transparent lg:bg-gradient-to-r lg:from-ink-900/95 lg:via-ink-900/60 lg:to-transparent" />
       </div>
 
-      {/* ================= BLOC CONTENU PRINCIPAL ================= */}
+      {/* ================= ZONE DU TEXTE PRINCIPAL ================= */}
+      {/* Le texte vient se placer naturellement sous l'image en mobile, éliminant tout conflit d'étirement */}
       <div
         className="
-          relative z-20
-          container mx-auto px-4
+          container mx-auto px-4 flex-grow
           flex flex-col items-center text-center
-          pt-20 pb-8
+          pt-8 pb-4
           lg:pt-0 lg:pb-0
           lg:min-h-[86vh]
           lg:flex-row
@@ -128,13 +129,13 @@ export default function Hero() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8, duration: 0.8 }}
-            className="mt-6 max-w-xl text-base sm:text-lg leading-relaxed text-white/90"
+            className="mt-4 max-w-xl text-base sm:text-lg leading-relaxed text-white/85"
           >
             BeniMarket connecte les commerçants de confiance près de chez vous à des milliers de clients — des produits locaux de qualité, livrés à domicile en toute sécurité.
           </motion.p>
         </div>
 
-        {/* ================= CARTES FLOTTANTES RESTAURÉES ================= */}
+        {/* ================= VOS CARTES FLOTTANTES DESKTOP (Restauration stricte) ================= */}
         <div className="hidden lg:block relative">
           <FloatingCard delay={0} className="pointer-events-none absolute right-10 top-20 w-52 rounded-2xl bg-white/95 p-3.5 shadow-2xl ring-1 ring-ink-900/5 backdrop-blur">
             <div className="flex items-center gap-2.5">
@@ -181,7 +182,7 @@ export default function Hero() {
       </div>
 
       {/* ================= BARRE DE RECHERCHE ET BADGES INFÉRIEURS ================= */}
-      <div className="relative z-20 container mx-auto px-4 pb-8">
+      <div className="container mx-auto px-4 pb-8 z-10">
         <form onSubmit={go} className="max-w-xl mx-auto lg:mx-0 animate-zoom-in delay-1000">
           <div className="flex flex-col sm:flex-row items-stretch gap-2 rounded-2xl border border-white/30 bg-white/95 p-2 shadow-2xl backdrop-blur">
             <div className="flex items-center flex-1">
