@@ -6,6 +6,7 @@ import Logo from '../ui/Logo'
 import Avatar from '../ui/Avatar'
 import { useAuth } from '../../context/AuthContext'
 
+// Layout générique pour les 4 tableaux de bord (client, vendeur, livreur, admin).
 export default function DashboardLayout({ title, subtitle, navItems = [], accent = 'teal', children }) {
   const [open, setOpen] = useState(false)
   const { user, logout } = useAuth()
@@ -31,6 +32,8 @@ export default function DashboardLayout({ title, subtitle, navItems = [], accent
               to={item.to}
               end={item.end}
               onClick={() => setOpen(false)}
+              // MODIFICATION ICI : On vérifie si item.isActive est explicitement vrai, 
+              // sinon on laisse NavLink décider via son paramètre navLinkActive.
               className={({ isActive: navLinkActive }) => {
                 const isCurrentActive = item.isActive !== undefined ? item.isActive : navLinkActive;
                 
@@ -62,8 +65,7 @@ export default function DashboardLayout({ title, subtitle, navItems = [], accent
   )
 
   return (
-    // AJOUT : overflow-x-hidden global pour tuer toute tentative de scroll horizontal sur l'application
-    <div className="min-h-screen w-full overflow-x-hidden bg-ink-50 flex">
+    <div className="min-h-screen bg-ink-50">
       {/* Sidebar desktop */}
       <aside className="fixed inset-y-0 left-0 z-30 hidden w-64 flex-col border-r border-ink-200 bg-white lg:flex">
         <SidebarContent />
@@ -79,10 +81,9 @@ export default function DashboardLayout({ title, subtitle, navItems = [], accent
         </div>
       )}
 
-      {/* Conteneur de droite réajusté pour isoler le flux flex et empêcher les enfants de pousser les murs */}
-      <div className="flex-1 lg:pl-64 flex flex-col min-w-0 w-full">
+      <div className="lg:pl-64">
         {/* Topbar */}
-        <header className="sticky top-0 z-20 shrink-0 border-b border-ink-200 bg-white/85 backdrop-blur-lg">
+        <header className="sticky top-0 z-20 border-b border-ink-200 bg-white/85 backdrop-blur-lg">
           <div className="flex h-16 items-center gap-3 px-4 sm:px-6">
             <button
               onClick={() => setOpen(true)}
@@ -91,35 +92,27 @@ export default function DashboardLayout({ title, subtitle, navItems = [], accent
             >
               <Menu size={22} />
             </button>
-            <div className="min-w-0 flex-1">
+            <div className="min-w-0">
               <h1 className="truncate font-display text-lg font-bold text-ink-900 sm:text-xl">{title}</h1>
               {subtitle && <p className="truncate text-xs text-ink-500 sm:text-sm">{subtitle}</p>}
             </div>
-            <div className="ml-auto flex items-center gap-2 shrink-0">
+            <div className="ml-auto flex items-center gap-2">
               <button className="relative grid h-11 w-11 place-items-center rounded-xl text-ink-600 hover:bg-ink-100" aria-label="Notifications">
                 <Bell size={20} />
                 <span className="absolute right-2.5 top-2.5 h-2 w-2 rounded-full bg-amber-500 ring-2 ring-white" />
               </button>
-              <div className="flex items-center gap-2.5 rounded-xl border border-ink-200 py-1.5 pl-1.5 pr-3 bg-white">
+              <div className="flex items-center gap-2.5 rounded-xl border border-ink-200 py-1.5 pl-1.5 pr-3">
                 <Avatar name={user?.name || '?'} role={user?.role} size="sm" rounded="rounded-lg" />
-                <div className="hidden leading-tight sm:block max-w-[120px]">
-                  <p className="text-sm font-semibold text-ink-900 truncate">{user?.name || 'Invité'}</p>
-                  <p className="text-[11px] capitalize text-ink-400 truncate">{user?.role || 'visiteur'}</p>
+                <div className="hidden leading-tight sm:block">
+                  <p className="text-sm font-semibold text-ink-900">{user?.name || 'Invité'}</p>
+                  <p className="text-[11px] capitalize text-ink-400">{user?.role || 'visiteur'}</p>
                 </div>
               </div>
             </div>
           </div>
         </header>
 
-        {/* 
-          MODIFICATION STRATÉGIQUE ICI :
-          - w-full max-w-full : Empêche le conteneur principal de dépasser de l'écran.
-          - overflow-x-hidden : Élimine définitivement le scroll horizontal parasite.
-          - box-border : S'assure que les paddings (px-4) ne gonflent pas la largeur totale.
-        */}
-        <main className="w-full max-w-full flex-1 px-4 py-6 sm:px-6 lg:px-8 box-border overflow-x-hidden">
-          {children}
-        </main>
+        <main className="px-4 py-6 sm:px-6 lg:px-8">{children}</main>
       </div>
     </div>
   )
