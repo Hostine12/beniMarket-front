@@ -55,12 +55,12 @@ export default function Hero() {
   };
 
   return (
-    // FIX IMPORTANT : On s'assure que la section est bien relative, block, et sur fond ink-900
-    <section className="relative block w-full bg-ink-900 text-white min-h-screen">
+    // FIX : isolation-auto force le navigateur à créer un contexte d'empilement propre
+    <section className="relative w-full overflow-hidden bg-ink-900 text-white min-h-screen isolation-auto">
 
       {/* ================= CARROUSEL D'IMAGES EN ARRIÈRE-PLAN ================= */}
-      {/* FIX OPTIQUE : h-[min(85vh,600px)] empêche l'image de devenir trop haute sur mobile (évite le zoom horizontal), tout en reprenant sa hauteur totale sur desktop (lg:h-full) */}
-      <div className="absolute inset-x-0 top-0 -z-10 w-full h-[min(75vh,550px)] lg:h-full overflow-hidden">
+      {/* FIX CRUCIAL : z-0 (au lieu de -z-10) empêche l'image de passer sous le fond noir. h-[55vh] max sur mobile pour éviter le zoom horizontal destructeur. */}
+      <div className="absolute inset-x-0 top-0 z-0 w-full h-[55vh] sm:h-[65vh] lg:h-full overflow-hidden">
         <div className="relative w-full h-full">
           {heroImages.map((img, index) => (
             <img
@@ -79,12 +79,12 @@ export default function Hero() {
           ))}
         </div>
 
-        {/* GRADIENT DE LISIBILITÉ COMPATIBLE MOBILE & DESKTOP */}
+        {/* GRADIENT DE LISIBILITÉ ULTRA-PROPRE */}
         <div
           className="
-            absolute inset-0
+            absolute inset-0 z-10
             bg-gradient-to-t
-            from-ink-900 via-ink-900/70 to-ink-900/30
+            from-ink-900 via-ink-900/75 to-transparent
 
             lg:bg-gradient-to-r
             lg:from-ink-900/95 lg:via-ink-900/60 lg:to-transparent
@@ -93,12 +93,13 @@ export default function Hero() {
       </div>
 
       {/* ================= BLOC CONTENU PRINCIPAL ================= */}
-      {/* On garde vos paddings et structures flex d'origine intactes */}
+      {/* FIX : z-20 force le texte et les formulaires à passer AU-DESSUS du carrousel d'images */}
       <div
         className="
+          relative z-20
           container mx-auto px-4
           flex flex-col items-center text-center
-          pt-24 pb-12
+          pt-28 pb-12
           lg:pt-0 lg:pb-0
           lg:min-h-[86vh]
           lg:flex-row
@@ -207,7 +208,8 @@ export default function Hero() {
       </div>
 
       {/* ================= BARRE DE RECHERCHE ET BADGES INFÉRIEURS ================= */}
-      <div className="container mx-auto px-4 pb-12 lg:pb-8">
+      {/* FIX : relative z-20 ici aussi */}
+      <div className="relative z-20 container mx-auto px-4 pb-12 lg:pb-8">
         <form onSubmit={go} className="max-w-xl mx-auto lg:mx-0 animate-zoom-in delay-1000">
           <div className="flex flex-col sm:flex-row items-stretch gap-2 rounded-2xl border border-white/30 bg-white/95 p-2 shadow-2xl backdrop-blur">
             <div className="flex items-center flex-1">
