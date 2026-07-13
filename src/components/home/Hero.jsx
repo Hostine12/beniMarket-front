@@ -142,7 +142,7 @@ export default function Hero() {
     delay={0.8}
     className="
       pointer-events-none absolute 
-      right-4 bottom-24 
+      right-4 bottom-20
       w-56 rounded-2xl 
       bg-white/95 p-4 
       shadow-2xl 
@@ -176,7 +176,7 @@ export default function Hero() {
     delay={1.5}
     className="
       absolute 
-      right-20 top-34
+      right-24 top-28
       w-56 rounded-2xl 
       bg-white/95 p-4 
       shadow-2xl 
@@ -214,7 +214,7 @@ export default function Hero() {
     delay={2.2}
     className="
       absolute 
-      right-0 top-72
+      right-0 top-64
       w-56 rounded-2xl 
       bg-white/95 p-4 
       shadow-2xl 
@@ -226,7 +226,7 @@ export default function Hero() {
     <div className="flex items-center gap-3">
 
       <span className="
-        grid h-11 h-11 place-items-center 
+        grid h-11 w-11 place-items-center 
         rounded-xl bg-lime-50 
         text-xl
       ">
