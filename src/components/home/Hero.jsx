@@ -136,15 +136,7 @@ export default function Hero() {
 
         {/* ================= CARTES FLOTTANTES RESTAURÉES ================= */}
         <div className="hidden lg:block relative">
-          // <FloatingCard delay={0} className="pointer-events-none absolute right-10 top-20 w-52 rounded-2xl bg-white/95 p-3.5 shadow-2xl ring-1 ring-ink-900/5 backdrop-blur">
-          //   <div className="flex items-center gap-2.5">
-          //     <span className="grid h-10 w-10 place-items-center rounded-xl bg-teal-50 text-teal-700"><Smartphone size={20}/></span>
-          //     <div className="leading-tight">
-          //       <p className="text-xs text-ink-400">Paiement</p>
-          //       <p className="text-sm font-bold text-ink-900">Mobile Money sécurisé</p>
-          //     </div>
-          //   </div>
-          // </FloatingCard>
+          
 
           <FloatingCard delay={0.8} className="pointer-events-none absolute right-10 bottom-20 w-52 rounded-2xl bg-white/95 p-3.5 shadow-2xl ring-1 ring-ink-900/5 backdrop-blur">
             <div className="flex items-center gap-2.5">
