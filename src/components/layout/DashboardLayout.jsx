@@ -52,7 +52,7 @@ export default function DashboardLayout({ title, subtitle, navItems = [], accent
       </nav>
       <div className="border-t border-ink-200 p-3">
         <Link to="/" className="flex items-center gap-2 rounded-xl px-3.5 py-2.5 text-sm font-medium text-ink-600 hover:bg-ink-100">
-          <ChevronLeft size={18} /> Retour à la boutique
+          <ChevronLeft size={18} /> Retour à l'accueil
         </Link>
         <button
           onClick={onLogout}
