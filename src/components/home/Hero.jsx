@@ -55,14 +55,14 @@ export default function Hero() {
   };
 
   return (
-    // On force un contexte d'empilement propre
-    <section className="relative w-full overflow-hidden bg-ink-900 text-white min-h-screen isolation-auto">
+    <section className="relative w-full bg-ink-900 text-white min-h-screen flex flex-col justify-between">
 
-      {/* ================= CARROUSEL D'IMAGES (Arrière-plan absolu et universel) ================= */}
-      {/* Sur mobile : h-[60vh] max pour garder de superbes proportions horizontales.
-        Sur desktop : lg:h-full pour prendre tout l'écran.
+      {/* ================= CARROUSEL COMPATIBLE TOUS ÉCRANS ================= */}
+      {/* FIX UNIQUE : 
+          - Sur Mobile : L'image s'affiche normalement en haut, au format paysage standard (h-64 ou h-72). Elle ne bave pas, ne zoome pas, et n'est pas recouverte de noir.
+          - Sur Desktop (lg:) : Elle redevient l'arrière-plan absolu sur tout l'écran.
       */}
-      <div className="absolute top-0 left-0 right-0 z-0 h-[55vh] sm:h-[65vh] lg:h-full w-full overflow-hidden">
+      <div className="relative w-full h-64 sm:h-80 lg:absolute lg:inset-0 lg:h-full lg:w-full lg:z-0 overflow-hidden">
         <div className="relative w-full h-full">
           {heroImages.map((img, index) => (
             <img
@@ -81,21 +81,18 @@ export default function Hero() {
           ))}
         </div>
 
-        {/* PROPRIÉTÉ DU NOIR (OVERLAY) : 
-          - Sur mobile : 'hidden' -> AUCUN noir, aucun dégradé, l'image est 100% lumineuse et nette.
-          - Sur desktop : 'lg:block bg-gradient-to-r' -> recrée ton dégradé horizontal d'origine de gauche à droite.
-        */}
+        {/* Dégradé de transition uniquement visible sur Desktop */}
         <div className="hidden lg:block absolute inset-0 z-10 bg-gradient-to-r lg:from-ink-900/95 lg:via-ink-900/60 lg:to-transparent" />
       </div>
 
-      {/* ================= ZONE DE CONTENU PRINCIPAL ================= */}
-      {/* z-20 pour passer au-dessus des images à coup sûr */}
+      {/* ================= TEXTE ET FORMULAIRES ================= */}
+      {/* Suit naturellement l'image sur mobile, évitant ainsi l'apparition d'un espace vide artificiel */}
       <div
         className="
           relative z-20
-          container mx-auto px-4
+          container mx-auto px-4 flex-grow
           flex flex-col items-center text-center
-          pt-[48vh] sm:pt-[55vh] pb-12
+          pt-8 pb-6
           lg:pt-0 lg:pb-0
           lg:min-h-[86vh]
           lg:flex-row
@@ -104,7 +101,6 @@ export default function Hero() {
           lg:justify-between
         "
       >
-        {/* Le texte commencera pile poil là où l'image se termine sur mobile, sur le fond bg-ink-900 propre du site */}
         <div className="max-w-2xl w-full">
           {/* Badge */}
           <motion.span
@@ -125,7 +121,7 @@ export default function Hero() {
             🌿 100% local — Parakou, Bénin
           </motion.span>
 
-          {/* TITRE ANIME */}
+          {/* TITRE */}
           <h1 className="mt-6 mb-4 font-display text-4xl sm:text-5xl lg:text-7xl font-extrabold leading-tight">
             <AnimatedHeroText />
           </h1>
@@ -141,7 +137,7 @@ export default function Hero() {
           </motion.p>
         </div>
 
-        {/* ================= VOS CARTES FLOTTANTES DESKTOP RESTAURÉES ================= */}
+        {/* ================= CARTES FLOTTANTES DESKTOP STRICTES ================= */}
         <div className="hidden lg:block relative">
           <FloatingCard delay={0} className="pointer-events-none absolute right-10 top-20 w-52 rounded-2xl bg-white/95 p-3.5 shadow-2xl ring-1 ring-ink-900/5 backdrop-blur">
             <div className="flex items-center gap-2.5">
@@ -187,8 +183,8 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* ================= BARRE DE RECHERCHE ET BADGES INFÉRIEURS ================= */}
-      <div className="relative z-20 container mx-auto px-4 pb-12">
+      {/* ================= ZONE RECHERCHE ET BAS DE PAGE ================= */}
+      <div className="relative z-20 container mx-auto px-4 pb-8">
         <form onSubmit={go} className="max-w-xl mx-auto lg:mx-0 animate-zoom-in delay-1000">
           <div className="flex flex-col sm:flex-row items-stretch gap-2 rounded-2xl border border-white/30 bg-white/95 p-2 shadow-2xl backdrop-blur">
             <div className="flex items-center flex-1">
