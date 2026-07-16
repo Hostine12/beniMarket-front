@@ -130,7 +130,7 @@ export default function Hero() {
             transition={{ delay: 0.8, duration: 0.8 }}
             className="mt-6 max-w-xl text-base sm:text-lg leading-relaxed text-white/90"
           >
-            BeniMarket connecte les commerçants de confiance près de chez vous à des milliers de clients — des produits locaux de qualité, livrés à domicile en toute sécurité.
+            BeniMarket connecte les commerçants de confiance près de chez vous à des milliers de clients, des produits locaux de qualité, livrés à domicile en toute sécurité.
           </motion.p>
         </div>
 
